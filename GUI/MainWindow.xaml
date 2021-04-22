@@ -36,6 +36,19 @@
 
         <!-- DUGMIC EFEKAT -->
 
+        <!-- DATA GRID HEADER -->
+
+        <Style x:Key="dg_header" TargetType="DataGridColumnHeader">
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="Background" Value="#424242"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="BorderBrush" Value="#616161"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <!-- DATA GRID HEADER -->
+
     </Window.Resources>
 
     <Canvas Height="400" Width="800">
@@ -82,8 +95,21 @@
         <Label 
             x:Name="lblPrognozirana" Content="Odaberite XML prognozirane potrošnje" 
             HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="71" Canvas.Top="43"/>
-        <Label x:Name="lblOstvarena" Content="Odaberite XML ostvarene potrošnje" 
+
+        <Label x:Name="lblOstvarena" Content="Odaberite XML ostvarene potrošnje"
             HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="71" Canvas.Top="12"/>
+
+        <DatePicker x:Name="dpIzborDatuma" Canvas.Left="438" Canvas.Top="12" Width="140"
+            Background="#9f9f9e" FirstDayOfWeek="Monday" FontFamily="Consolas" FontSize="14"/>
+
+        <ComboBox x:Name="cbOdabirGeoOblasti" Background="#9f9f9e" FontFamily="Consolas" FontSize="14" 
+            Canvas.Left="438" Canvas.Top="47" Width="140"/>
+
+        <Button x:Name="btnPrikazi" Content="PRIKAZI" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Height="24" Background="#9f9f9e" FontFamily="Consolas" FontSize="18" Canvas.Left="617" Canvas.Top="24"/>
+
+        <DataGrid x:Name="dgPrikazPodataka" Background="#9f9f9e"
+            ColumnHeaderStyle ="{StaticResource dg_header}"
+            Height="300" Canvas.Left="335" Canvas.Top="90" Width="455"/>
 
 
         <!-- MENI -->

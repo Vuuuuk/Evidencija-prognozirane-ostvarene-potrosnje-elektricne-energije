@@ -24,6 +24,7 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
+            dpIzborDatuma.SelectedDate = DateTime.Today;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
