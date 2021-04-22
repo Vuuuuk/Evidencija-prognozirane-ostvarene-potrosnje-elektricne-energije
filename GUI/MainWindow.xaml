@@ -51,7 +51,7 @@
         </Path>
         <!-- MENI -->
 
-        
+
 
         <Button x:Name="btnIzlaz" 
         Style="{StaticResource btn_efekat}"
@@ -78,13 +78,13 @@
         </Button>
 
         <Button x:Name="btnPotvrdi" Content="POTVRDI" HorizontalAlignment="Left" Margin="16,356,0,0" VerticalAlignment="Top" Width="279" Height="34" Background="#9f9f9e" FontFamily="Consolas" FontSize="18"/>
-        
+
         <Label 
             x:Name="lblPrognozirana" Content="Odaberite XML prognozirane potrošnje" 
-            HorizontalAlignment="Left" Margin="75,43,0,0" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e"/>
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="74" Canvas.Top="43"/>
         <Label x:Name="lblOstvarena" Content="Odaberite XML ostvarene potrošnje" 
-            HorizontalAlignment="Left" Margin="75,12,0,0" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e"/>
-        
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="74" Canvas.Top="12"/>
+
 
         <!-- MENI -->
 
