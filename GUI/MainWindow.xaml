@@ -81,9 +81,9 @@
 
         <Label 
             x:Name="lblPrognozirana" Content="Odaberite XML prognozirane potrošnje" 
-            HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="73" Canvas.Top="43"/>
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="72" Canvas.Top="43"/>
         <Label x:Name="lblOstvarena" Content="Odaberite XML ostvarene potrošnje" 
-            HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="73" Canvas.Top="12"/>
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e" Canvas.Left="72" Canvas.Top="12"/>
 
 
         <!-- MENI -->
