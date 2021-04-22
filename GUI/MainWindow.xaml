@@ -5,8 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Evidencija prognozirane ostvarene potrošnje električne energije"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        WindowStyle = "None"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        Background="#212121">
+
+    <Window.Resources>
+
+        <!-- DUGMIC EFEKAT -->
+
+        <Style x:Key="btn_efekat" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="btn_okvir" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- DUGMIC EFEKAT -->
+
+    </Window.Resources>
+
+    <Grid Height="600" Width="1200">
+        
+        <!-- MENI -->
+
+        <Button x:Name="btnIzlaz" 
+        Style="{StaticResource btn_efekat}"
+        Width="21" Height="21" Margin="1169,9,10,570" 
+        Background="Transparent"
+        Click="btn_izlaz_Click">
+            <Image Source="Assets\Meni\btn_meni_izlaz.png"/>
+        </Button>
+
+        <Button x:Name="btnIzborPrognozirana" 
+        Style="{StaticResource btn_efekat}"
+        Width="21" Height="21" Margin="15,45,1164,534" 
+        Background="Transparent"
+        Click="btnIzborPrognozirana_Click">
+            <Image Source="Assets\Meni\btn_pretraga.png"/>
+        </Button>
+
+        <Button x:Name="btnIzborOstvarena" 
+        Style="{StaticResource btn_efekat}"
+        Width="21" Height="21" Margin="14,15,1165,564" 
+        Background="Transparent"
+        Click="btnIzborOstvarena_Click">
+            <Image Source="Assets\Meni\btn_pretraga.png"/>
+        </Button>
+
+        <Label 
+            x:Name="lblPrognozirana" Content="Odaberite XML prognozirane potrošnje" 
+            HorizontalAlignment="Left" Margin="75,43,0,0" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e"/>
+        <Label x:Name="lblOstvarena" Content="Odaberite XML ostvarene potrošnje" 
+            HorizontalAlignment="Left" Margin="75,12,0,0" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e"/>
+
+        <!-- MENI -->
         
     </Grid>
 </Window>

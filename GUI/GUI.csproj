@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Meni\btn_meni_izlaz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Meni\btn_pretraga.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

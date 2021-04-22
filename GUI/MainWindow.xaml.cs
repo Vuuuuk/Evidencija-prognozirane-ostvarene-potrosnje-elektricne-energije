@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,34 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void btn_izlaz_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnIzborPrognozirana_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Odabir XML prognozirane potrošnje";
+            op.Filter = "XML | *.xml";
+            if (op.ShowDialog().Value)
+                lblPrognozirana.Content = op.SafeFileName;
+        }
+
+        private void btnIzborOstvarena_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Odabir XML ostvarene potrošnje";
+            op.Filter = "XML | *.xml";
+            if (op.ShowDialog().Value)
+                lblOstvarena.Content = op.SafeFileName;
         }
     }
 }
