@@ -38,13 +38,24 @@
 
     </Window.Resources>
 
-    <Grid Height="600" Width="1200">
-        
+    <Canvas Height="400" Width="800">
+        <Path Stroke="#9f9f9e" StrokeThickness="2">
+            <Path.Data>
+                <PathGeometry>
+
+                    <PathFigure StartPoint="310,10">
+                        <LineSegment Point="310, 390"/>
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
         <!-- MENI -->
+
+        
 
         <Button x:Name="btnIzlaz" 
         Style="{StaticResource btn_efekat}"
-        Width="21" Height="21" Margin="1169,9,10,570" 
+        Width="21" Height="21" Margin="772,7,7,372" 
         Background="Transparent"
         Click="btn_izlaz_Click">
             <Image Source="Assets\Meni\btn_meni_izlaz.png"/>
@@ -52,7 +63,7 @@
 
         <Button x:Name="btnIzborPrognozirana" 
         Style="{StaticResource btn_efekat}"
-        Width="21" Height="21" Margin="15,45,1164,534" 
+        Width="21" Height="21" Margin="16,45,763,334" 
         Background="Transparent"
         Click="btnIzborPrognozirana_Click">
             <Image Source="Assets\Meni\btn_pretraga.png"/>
@@ -60,19 +71,22 @@
 
         <Button x:Name="btnIzborOstvarena" 
         Style="{StaticResource btn_efekat}"
-        Width="21" Height="21" Margin="14,15,1165,564" 
+        Width="21" Height="21" Margin="15,15,764,364" 
         Background="Transparent"
         Click="btnIzborOstvarena_Click">
             <Image Source="Assets\Meni\btn_pretraga.png"/>
         </Button>
 
+        <Button x:Name="btnPotvrdi" Content="POTVRDI" HorizontalAlignment="Left" Margin="16,356,0,0" VerticalAlignment="Top" Width="279" Height="34" Background="#9f9f9e" FontFamily="Consolas" FontSize="18"/>
+        
         <Label 
             x:Name="lblPrognozirana" Content="Odaberite XML prognozirane potrošnje" 
             HorizontalAlignment="Left" Margin="75,43,0,0" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e"/>
         <Label x:Name="lblOstvarena" Content="Odaberite XML ostvarene potrošnje" 
             HorizontalAlignment="Left" Margin="75,12,0,0" VerticalAlignment="Top" Width="220" Foreground="#9f9f9e"/>
+        
 
         <!-- MENI -->
-        
-    </Grid>
+
+    </Canvas>
 </Window>
