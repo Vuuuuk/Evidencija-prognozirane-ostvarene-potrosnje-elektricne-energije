@@ -90,7 +90,7 @@
             <Image Source="Assets\Meni\btn_pretraga.png"/>
         </Button>
 
-        <Button x:Name="btnPotvrdi" Content="POTVRDI" HorizontalAlignment="Left" Margin="16,356,0,0" VerticalAlignment="Top" Width="279" Height="34" Background="#9f9f9e" FontFamily="Consolas" FontSize="18"/>
+        <Button x:Name="btnPotvrdi" Content="POTVRDI" HorizontalAlignment="Left" Margin="16,356,0,0" VerticalAlignment="Top" Width="279" Height="34" Background="#9f9f9e" FontFamily="Consolas" FontSize="18" Click="btnPotvrdi_Click"/>
 
         <Label 
             x:Name="lblPrognozirana" Content="Odaberite XML prognozirane potrošnje" 
@@ -111,6 +111,13 @@
             ColumnHeaderStyle ="{StaticResource dg_header}"
             Height="300" Canvas.Left="335" Canvas.Top="90" Width="455"/>
 
+        <Label 
+            x:Name="lblGeografskaPodrucja" Content="Evidencija geografskih područja:" 
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Foreground="#9f9f9e" Canvas.Left="62" Canvas.Top="107"/>
+
+        <DataGrid x:Name="dgGeografskaPodrucja" Background="#9f9f9e"
+            ColumnHeaderStyle ="{StaticResource dg_header}"
+            Height="206" Canvas.Left="16" Canvas.Top="138" Width="279"/>
 
         <!-- MENI -->
 

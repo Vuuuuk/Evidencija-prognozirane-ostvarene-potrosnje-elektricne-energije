@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using GUI.DemoImplementacija;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,13 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        Deserijalizator deserijalizator = new Deserijalizator();
+        private string ostvarenaFlag = "Empty";
+        private string prognoziranaFlag = "Empty";
+
         public MainWindow()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             dpIzborDatuma.SelectedDate = DateTime.Today;
         }
@@ -36,23 +42,48 @@ namespace GUI
         {
             this.Close();
         }
+        
+        private void btnIzborOstvarena_Click(object sender, RoutedEventArgs e)
+        {
+            ostvarenaFlag = deserijalizator.IzborXMLOstvarena();
+            if (ostvarenaFlag.Contains("Error"))
+                lblOstvarena.Content = ostvarenaFlag.Split('_')[1];
+            if (ostvarenaFlag.Equals("Empty"))
+                lblOstvarena.Content = "Odaberite XML ostvarene potrošnje";
+            else
+                lblOstvarena.Content = ostvarenaFlag;
+        }
 
         private void btnIzborPrognozirana_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Odabir XML prognozirane potrošnje";
-            op.Filter = "XML | *.xml";
-            if (op.ShowDialog().Value)
-                lblPrognozirana.Content = op.SafeFileName;
+            prognoziranaFlag = deserijalizator.IzborXMLPrognozirana();
+            if (prognoziranaFlag.Contains("Error"))
+                lblPrognozirana.Content = prognoziranaFlag.Split('_')[1];
+            if (prognoziranaFlag.Equals("Empty"))
+                lblPrognozirana.Content = "Odaberite XML prognozirane potrošnje";
+            else
+                lblPrognozirana.Content = prognoziranaFlag;
         }
 
-        private void btnIzborOstvarena_Click(object sender, RoutedEventArgs e)
+        private void btnPotvrdi_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Odabir XML ostvarene potrošnje";
-            op.Filter = "XML | *.xml";
-            if (op.ShowDialog().Value)
-                lblOstvarena.Content = op.SafeFileName;
+            if(ostvarenaFlag.Contains("Error") || prognoziranaFlag.Contains("Error"))
+            {
+                MessageBox.Show("Izabrali ste pogrešan TIP fajla, potrebno je odabrati .XML!", "Greška", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+            else if(ostvarenaFlag.Equals("Empty") || prognoziranaFlag.Equals("Empty"))
+            {
+                MessageBox.Show("Niste odabrali potrebne fajlove!", "Greška", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+            else
+            {
+                deserijalizator.LoadXMLOstvarena();
+                deserijalizator.LoadXMLPrognozirana();
+                deserijalizator.ParsiranjeXMLOstvarena();
+                deserijalizator.ParsiranjeXMLPrognozirana();
+            }
         }
     }
 }
