@@ -23,6 +23,7 @@ namespace GUI
     public partial class MainWindow : Window
     {
         Deserijalizator deserijalizator = new Deserijalizator();
+        Validator validator = new Validator();
         private string ostvarenaFlag = "Empty";
         private string prognoziranaFlag = "Empty";
 
@@ -83,6 +84,10 @@ namespace GUI
                 deserijalizator.LoadXMLPrognozirana();
                 deserijalizator.ParsiranjeXMLOstvarena();
                 deserijalizator.ParsiranjeXMLPrognozirana();
+
+                //Test
+                Console.WriteLine(validator.ValidacijaPodatakaOstvarena(deserijalizator.Op));
+                Console.WriteLine(validator.ValidacijaPodatakaPrognozirana(deserijalizator.Pp));
             }
         }
     }

@@ -89,6 +89,7 @@ namespace GUI.DemoImplementacija
 
         public void ParsiranjeXMLOstvarena()
         {
+            Op.Clear();
             foreach (XmlNode node in xmlOstvarena.DocumentElement)
                 Op.Add(new OstvarenaPotrosnja(Int32.Parse(node["SAT"].InnerText), Int32.Parse(node["LOAD"].InnerText), node["OBLAST"].InnerText));
 
@@ -96,6 +97,7 @@ namespace GUI.DemoImplementacija
 
         public void ParsiranjeXMLPrognozirana()
         {
+            Pp.Clear();
             foreach (XmlNode node in xmlPrognozirana.DocumentElement)
                 Pp.Add(new PrognoziranaPotrosnja(Int32.Parse(node["SAT"].InnerText), Int32.Parse(node["LOAD"].InnerText), node["OBLAST"].InnerText));
 
