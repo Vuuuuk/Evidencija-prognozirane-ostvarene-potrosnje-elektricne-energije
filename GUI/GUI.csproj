@@ -101,6 +101,10 @@
     <Resource Include="Assets\Meni\btn_unos.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BazaPodataka\BazaPodataka.csproj">
+      <Project>{ADF68993-B2AD-475B-9B19-78E33CDDDF3C}</Project>
+      <Name>BazaPodataka</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{1D775CFE-8F07-44C1-9F35-75D4D49249D1}</Project>
       <Name>Common</Name>

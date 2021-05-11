@@ -110,7 +110,7 @@
         <ComboBox x:Name="cbOdabirGeoOblasti" Background="#9f9f9e" FontFamily="Consolas" FontSize="14" 
             Canvas.Left="469" Canvas.Top="14" Width="140" Height="24"/>
 
-        <Button x:Name="btnPrikazi" Content="PRIKAZI" HorizontalAlignment="Left" VerticalAlignment="Top" Width="285" Height="24" Background="#9f9f9e" FontFamily="Consolas" FontSize="18" Canvas.Left="324" Canvas.Top="45"/>
+        <Button x:Name="btnPrikazi" Content="PRIKAZ" HorizontalAlignment="Left" VerticalAlignment="Top" Width="285" Height="24" Background="#9f9f9e" FontFamily="Consolas" FontSize="18" Canvas.Left="324" Canvas.Top="45"/>
         <Button x:Name="btnExport" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Height="55" Background="#9f9f9e" FontFamily="Consolas" FontSize="18" Canvas.Left="640" Canvas.Top="14">
             <StackPanel Orientation="Horizontal">
                 <Image Source="Assets\Meni\btn_export.png" Width="33" Height="29"/>

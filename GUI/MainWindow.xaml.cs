@@ -1,19 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using BazaPodataka;
+using Common.Models;
+using Microsoft.Win32;
 using Servis;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI
 {
@@ -28,6 +19,8 @@ namespace GUI
         Deserijalizacija deserijalizator = new Deserijalizacija();
         OpenFileDialog ostvarena;
         OpenFileDialog prognozirana;
+
+        Baza baza = new Baza();
 
         public MainWindow()
         {
@@ -97,23 +90,15 @@ namespace GUI
                 
                 if (validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja) && validatorPodataka.Validator(deserijalizator.PrognoziranaPotrosnja))
                 {
-                    // TODO : GOOD FILES
-                    Console.WriteLine(deserijalizator.ParseDatum(ostvarena.SafeFileName).ToShortDateString());
+                    foreach(Potrosnja p in deserijalizator.OstvarenaPotrosnja)
+                        baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
+
                 }
             }
             else
             {
                 MessageBox.Show("Unesite potrebne fajlove!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            /*Console.WriteLine("OSTVARENA");
-            foreach (Potrosnja p in deserijalizator.OstvarenaPotrosnja)
-                Console.WriteLine(p);
-
-            Console.WriteLine("PROGNOZIRANA");
-            foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
-                Console.WriteLine(p);
-            */
         }
     }
 }
