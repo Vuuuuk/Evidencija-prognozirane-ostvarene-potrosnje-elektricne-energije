@@ -73,5 +73,11 @@ namespace Servis
             DateTime datum = DateTime.Parse(filename.Split(splitChar)[3] + "." + filename.Split(splitChar)[2] + "." + filename.Split(splitChar)[1]);
             return datum;
         }
+
+        public int BrojRedova(OpenFileDialog ofd)
+        {
+            string[] readText = System.IO.File.ReadAllLines(ofd.FileName);
+            return readText.Length;
+        }
     }
 }

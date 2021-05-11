@@ -3,6 +3,7 @@ using Common.Models;
 using Microsoft.Win32;
 using Servis;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -92,7 +93,15 @@ namespace GUI
                 {
                     foreach(Potrosnja p in deserijalizator.OstvarenaPotrosnja)
                         baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
-
+                    foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
+                        baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
+                }
+                else
+                {
+                    if(!validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja))
+                        baza.UpisNevalidnogFajla(DateTime.Now, ostvarena, deserijalizator.BrojRedova(ostvarena));
+                    if (!validatorPodataka.Validator(deserijalizator.PrognoziranaPotrosnja))
+                        baza.UpisNevalidnogFajla(DateTime.Now, prognozirana, deserijalizator.BrojRedova(prognozirana));
                 }
             }
             else
