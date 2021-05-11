@@ -1,4 +1,5 @@
-﻿using Common.Models;
+﻿using Common.Interface;
+using Common.Models;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BazaPodataka
 {
-    public class Baza
+    public class Baza : IBaza
     {
         private Connection connection = new Connection();
 
