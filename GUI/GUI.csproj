@@ -63,10 +63,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DemoImplementacija\Deserijalizator.cs" />
-    <Compile Include="DemoImplementacija\Podaci\OstvarenaPotrosnja.cs" />
-    <Compile Include="DemoImplementacija\Podaci\PrognoziranaPotrosnja.cs" />
-    <Compile Include="DemoImplementacija\Validator.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -99,10 +95,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Meni\btn_export.png" />
     <Resource Include="Assets\Meni\btn_meni_izlaz.png" />
+    <Resource Include="Assets\Meni\btn_pretraga.png" />
+    <Resource Include="Assets\Meni\btn_unos.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Meni\btn_pretraga.png" />
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{1D775CFE-8F07-44C1-9F35-75D4D49249D1}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servis\Servis.csproj">
+      <Project>{0D20C765-6C12-459B-B1BF-1E4DC78679A2}</Project>
+      <Name>Servis</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

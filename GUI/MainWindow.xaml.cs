@@ -1,5 +1,5 @@
-﻿using GUI.DemoImplementacija;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using Servis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +22,17 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        Deserijalizator deserijalizator = new Deserijalizator();
-        Validator validator = new Validator();
-        private string ostvarenaFlag = "Empty";
-        private string prognoziranaFlag = "Empty";
+
+        ValidatorTipaFajla validatorTipa = new ValidatorTipaFajla();
+        ValidatorPodataka validatorPodataka = new ValidatorPodataka();
+        Deserijalizacija deserijalizator = new Deserijalizacija();
+        OpenFileDialog ostvarena;
+        OpenFileDialog prognozirana;
 
         public MainWindow()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            dpIzborDatuma.SelectedDate = DateTime.Today;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -43,52 +44,76 @@ namespace GUI
         {
             this.Close();
         }
-        
+
         private void btnIzborOstvarena_Click(object sender, RoutedEventArgs e)
         {
-            ostvarenaFlag = deserijalizator.IzborXMLOstvarena();
-            if (ostvarenaFlag.Contains("Error"))
-                lblOstvarena.Content = ostvarenaFlag.Split('_')[1];
-            if (ostvarenaFlag.Equals("Empty"))
+            ostvarena = OpenFile();
+            if (ostvarena == null)
                 lblOstvarena.Content = "Odaberite XML ostvarene potrošnje";
             else
-                lblOstvarena.Content = ostvarenaFlag;
+            {
+                if (!validatorTipa.ValidatorTipa(ostvarena.SafeFileName))
+                    lblOstvarena.Content = "Pogrešan tip fajla!";
+                else
+                    lblOstvarena.Content = ostvarena.SafeFileName;
+            }
         }
 
         private void btnIzborPrognozirana_Click(object sender, RoutedEventArgs e)
         {
-            prognoziranaFlag = deserijalizator.IzborXMLPrognozirana();
-            if (prognoziranaFlag.Contains("Error"))
-                lblPrognozirana.Content = prognoziranaFlag.Split('_')[1];
-            if (prognoziranaFlag.Equals("Empty"))
+            prognozirana = OpenFile();
+            if (prognozirana == null)
                 lblPrognozirana.Content = "Odaberite XML prognozirane potrošnje";
             else
-                lblPrognozirana.Content = prognoziranaFlag;
+            {
+                if (!validatorTipa.ValidatorTipa(prognozirana.SafeFileName))
+                    lblPrognozirana.Content = "Pogrešan tip fajla!";
+                else
+                    lblPrognozirana.Content = prognozirana.SafeFileName;
+            }
+        }
+
+        private OpenFileDialog OpenFile()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "XML Fajlovi (*.xml) | *.xml| Svi Fajlovi (*.*) | *.*";
+            ofd.FilterIndex = 0;
+            ofd.DefaultExt = "xml";
+            if (ofd.ShowDialog().Value)
+            {
+                return ofd;
+            }
+            return null;
         }
 
         private void btnPotvrdi_Click(object sender, RoutedEventArgs e)
         {
-            if(ostvarenaFlag.Contains("Error") || prognoziranaFlag.Contains("Error"))
+            if (ostvarena != null && prognozirana != null)
             {
-                MessageBox.Show("Izabrali ste pogrešan TIP fajla, potrebno je odabrati .XML!", "Greška", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
-            }
-            else if(ostvarenaFlag.Equals("Empty") || prognoziranaFlag.Equals("Empty"))
-            {
-                MessageBox.Show("Niste odabrali potrebne fajlove!", "Greška", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                return;
+                deserijalizator.LoadXMLOstvarena(ostvarena);
+                deserijalizator.LoadXMLPrognozirana(prognozirana);
+                deserijalizator.ParsiranjeXMLOstvarena();
+                deserijalizator.ParsiranjeXMLPrognozirana();
+                
+                if (validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja) && validatorPodataka.Validator(deserijalizator.PrognoziranaPotrosnja))
+                {
+                    // TODO : GOOD FILES
+                    Console.WriteLine(deserijalizator.ParseDatum(ostvarena.SafeFileName).ToShortDateString());
+                }
             }
             else
             {
-                deserijalizator.LoadXMLOstvarena();
-                deserijalizator.LoadXMLPrognozirana();
-                deserijalizator.ParsiranjeXMLOstvarena();
-                deserijalizator.ParsiranjeXMLPrognozirana();
-
-                //Test
-                Console.WriteLine(validator.ValidacijaPodatakaOstvarena(deserijalizator.Op));
-                Console.WriteLine(validator.ValidacijaPodatakaPrognozirana(deserijalizator.Pp));
+                MessageBox.Show("Unesite potrebne fajlove!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            /*Console.WriteLine("OSTVARENA");
+            foreach (Potrosnja p in deserijalizator.OstvarenaPotrosnja)
+                Console.WriteLine(p);
+
+            Console.WriteLine("PROGNOZIRANA");
+            foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
+                Console.WriteLine(p);
+            */
         }
     }
 }
