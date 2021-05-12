@@ -102,15 +102,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BazaPodataka\BazaPodataka.csproj">
-      <Project>{ADF68993-B2AD-475B-9B19-78E33CDDDF3C}</Project>
+      <Project>{adf68993-b2ad-475b-9b19-78e33cdddf3c}</Project>
       <Name>BazaPodataka</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{1D775CFE-8F07-44C1-9F35-75D4D49249D1}</Project>
+      <Project>{1d775cfe-8f07-44c1-9f35-75d4d49249d1}</Project>
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servis\Servis.csproj">
-      <Project>{0D20C765-6C12-459B-B1BF-1E4DC78679A2}</Project>
+      <Project>{0d20c765-6c12-459b-b1bf-1e4dc78679a2}</Project>
       <Name>Servis</Name>
     </ProjectReference>
   </ItemGroup>

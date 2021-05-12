@@ -3,6 +3,7 @@ using Common.Models;
 using Microsoft.Win32;
 using Servis;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -14,7 +15,6 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-
         ValidatorTipaFajla validatorTipa = new ValidatorTipaFajla();
         ValidatorPodataka validatorPodataka = new ValidatorPodataka();
         Deserijalizacija deserijalizator = new Deserijalizacija();
@@ -27,6 +27,8 @@ namespace GUI
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
+            btnPrikazi.IsEnabled = false;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -82,32 +84,88 @@ namespace GUI
 
         private void btnPotvrdi_Click(object sender, RoutedEventArgs e)
         {
+            bool valid = true;
+            bool ostv = false, prog = false; // ne postoje u bazi
+            string message = "";
+
             if (ostvarena != null && prognozirana != null)
             {
+                if(baza.FajlUcitan(ostvarena.SafeFileName))
+                {
+                    message += "[INFO] Fajl \"" + ostvarena.SafeFileName + "\" već postoji u bazi podataka!" + Environment.NewLine;
+                    valid = false;
+                    ostv = true;
+                }
+                if (baza.FajlUcitan(prognozirana.SafeFileName))
+                {
+                    message += "[INFO] Fajl \"" + prognozirana.SafeFileName + "\" već postoji u bazi podataka!" + Environment.NewLine;
+                    valid = false;
+                    prog = true;
+                }
+
                 deserijalizator.LoadXMLOstvarena(ostvarena);
                 deserijalizator.LoadXMLPrognozirana(prognozirana);
                 deserijalizator.ParsiranjeXMLOstvarena();
                 deserijalizator.ParsiranjeXMLPrognozirana();
-                
-                if (validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja) && validatorPodataka.Validator(deserijalizator.PrognoziranaPotrosnja))
+
+                // Validato podataka OSTVARENE potrosnje i upis u bazu
+                if (validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja))
                 {
-                    foreach(Potrosnja p in deserijalizator.OstvarenaPotrosnja)
-                        baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
-                    foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
-                        baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
+                    if(!ostv)
+                    {
+                        foreach (Potrosnja p in deserijalizator.OstvarenaPotrosnja)
+                            baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
+                        message += "[INFO] Fajl \"" + ostvarena.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
+                    }
                 }
                 else
                 {
-                    if(!validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja))
-                        baza.UpisNevalidnogFajla(DateTime.Now, ostvarena, deserijalizator.BrojRedova(ostvarena));
-                    if (!validatorPodataka.Validator(deserijalizator.PrognoziranaPotrosnja))
-                        baza.UpisNevalidnogFajla(DateTime.Now, prognozirana, deserijalizator.BrojRedova(prognozirana));
+                    baza.UpisNevalidnogFajla(DateTime.Now, ostvarena, deserijalizator.BrojRedova(ostvarena));
+                    message += "[ERROR] Fajl \"" + ostvarena.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
+                    valid = false;
+                }
+
+                // Validato podataka PROGNOZIRANE potrosnje i upis u bazu
+                if (validatorPodataka.Validator(deserijalizator.PrognoziranaPotrosnja))
+                {
+                    if (!prog)
+                    {
+                        foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
+                            baza.UpisPotrosnje(DateTime.Now, prognozirana, p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
+                        message += "[INFO] Fajl \"" + prognozirana.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
+                    }
+                }
+                else
+                {
+                    baza.UpisNevalidnogFajla(DateTime.Now, prognozirana, deserijalizator.BrojRedova(prognozirana));
+                    message += "[ERROR] Fajl \"" + prognozirana.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
+                    valid = false;
                 }
             }
             else
             {
-                MessageBox.Show("Unesite potrebne fajlove!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                message += "Unesite potrebne fajlove!" + Environment.NewLine;
+                valid = false;
             }
+
+            if (valid)
+                MessageBox.Show(message, "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show(message, "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
+        }
+
+        private void btnPrikazi_Click(object sender, RoutedEventArgs e)
+        {
+            List<RelativnoOdstupanje> lista = baza.ProracunOdstupanja(cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), dpIzborDatuma.SelectedDate.Value.ToShortDateString());
+            dgPrikazPodataka.ItemsSource = lista;
+        }
+
+        private void dpIzborDatuma_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(dpIzborDatuma.SelectedDate != null)
+                btnPrikazi.IsEnabled = true;
         }
     }
 }

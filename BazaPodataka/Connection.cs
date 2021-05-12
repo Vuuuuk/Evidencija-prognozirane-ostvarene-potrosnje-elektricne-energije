@@ -9,9 +9,10 @@ namespace BazaPodataka
 {
     public class Connection
     {
-        //User ID=Vuk Radunović;Password=vuki!
-        //User ID=Milan Stevanović;Password=resprojekat123
-        private static string baseConnectionString = @"Data Source=79.175.71.245;Initial Catalog=Evidencija Potrosnje;User ID=Vuk Radunović;Password=vuki!";
+        //User ID=Vuk Radunovic;Password=vuki!
+        //User ID=Milan Stevanovic;Password=resprojekat123
+        private static string baseConnectionString = @"Data Source=79.175.67.179;Initial Catalog=Evidencija Potrosnje;User ID=Vuk Radunovic;Password=vuki!";
+        //private static string baseConnectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=Evidencija Potrosnje;Integrated Security=True";
         private SqlConnection sqlConnection = new SqlConnection(baseConnectionString);
 
         public Connection()
@@ -24,9 +25,9 @@ namespace BazaPodataka
         public void promenaKorisnika(string username)
         {
             if (username.Equals("Vuk") || username.Equals(string.Empty))
-                baseConnectionString = @"Data Source=79.175.71.245;Initial Catalog=Evidencija Potrosnje;User ID=Vuk Radunović;Password=vuki!";
+                baseConnectionString = @"Data Source=79.175.67.179;Initial Catalog=Evidencija Potrosnje;User ID=Vuk Radunovic;Password=vuki!";
             if (username.Equals("Milan"))
-                baseConnectionString = @"Data Source=79.175.71.245;Initial Catalog=Evidencija Potrosnje;User ID=Milan Stevanović;Password=resprojekat123";
+                baseConnectionString = @"Data Source=79.175.67.179;Initial Catalog=Evidencija Potrosnje;User ID=Milan Stevanovic;Password=resprojekat123";
 
             SqlConnection.Close();
             SqlConnection.ConnectionString = baseConnectionString;
