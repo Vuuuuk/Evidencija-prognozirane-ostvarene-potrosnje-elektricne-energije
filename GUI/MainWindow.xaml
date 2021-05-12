@@ -94,6 +94,24 @@
             <Image Source="Assets\Meni\btn_meni_izlaz.png"/>
         </Button>
 
+        <Button x:Name="btnLogin" 
+        Style="{StaticResource btn_efekat}"
+        Width="21" Height="21" 
+        Click="btnLogin_Click"
+        Background="Transparent"
+        Canvas.Top="33" Canvas.Left="771">
+            <Image Source="Assets\Meni\btn_login.png"/>
+        </Button>
+
+        <Button x:Name="btnDelete" 
+        Style="{StaticResource btn_efekat}"
+        Width="21" Height="21" 
+        Click="btnDelete_Click"
+        Background="Transparent"
+        Canvas.Top="58" Canvas.Left="771">
+            <Image Source="Assets\Meni\btn_delete.png"/>
+        </Button>
+
         <Button x:Name="btnIzborPrognozirana" 
         Style="{StaticResource btn_efekat}"
         Width="31" Height="31" 

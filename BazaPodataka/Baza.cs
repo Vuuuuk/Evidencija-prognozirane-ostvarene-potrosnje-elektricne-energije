@@ -119,5 +119,14 @@ namespace BazaPodataka
                 return true;
             return false;
         }
+
+        public void IsprazniBazu()
+        {
+            SqlCommand command = new SqlCommand("DELETE FROM EvidencijaGeoPodrucja; " +
+                                                "DELETE FROM EvidencijaNevalidnihFajlova;" +
+                                                "DELETE FROM EvidencijaOstvarenePotrosnje; " +
+                                                "DELETE FROM EvidencijaPrognoziranePotrosnje;", connection.SqlConnection);
+            command.ExecuteNonQuery();
+        }
     }
 }

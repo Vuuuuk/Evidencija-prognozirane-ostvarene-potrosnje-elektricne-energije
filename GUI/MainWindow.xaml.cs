@@ -22,12 +22,12 @@ namespace GUI
         OpenFileDialog prognozirana;
 
         Baza baza = new Baza();
+        Connection connection = new Connection();
 
         public MainWindow()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
             btnPrikazi.IsEnabled = false;
         }
 
@@ -38,6 +38,7 @@ namespace GUI
 
         private void btn_izlaz_Click(object sender, RoutedEventArgs e)
         {
+            connection.ZatvoriKonekciju();
             this.Close();
         }
 
@@ -88,7 +89,7 @@ namespace GUI
             bool ostv = false, prog = false; // ne postoje u bazi
             string message = "";
 
-            if (ostvarena != null && prognozirana != null)
+            if (ostvarena != null && prognozirana != null && connection.ProveriKonekciju())
             {
                 if(baza.FajlUcitan(ostvarena.SafeFileName))
                 {
@@ -141,19 +142,20 @@ namespace GUI
                     message += "[ERROR] Fajl \"" + prognozirana.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
                     valid = false;
                 }
+
+                cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
+
             }
             else
             {
-                message += "Unesite potrebne fajlove!" + Environment.NewLine;
+                message += "Unesite potrebne fajlove i/ili proverite konekciju sa bazom!" + Environment.NewLine;
                 valid = false;
             }
 
             if (valid)
                 MessageBox.Show(message, "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
             else
-                MessageBox.Show(message, "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-            cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
+                MessageBox.Show(message, "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void btnPrikazi_Click(object sender, RoutedEventArgs e)
@@ -162,10 +164,28 @@ namespace GUI
             dgPrikazPodataka.ItemsSource = lista;
         }
 
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            Logovanje logovanje = new Logovanje();
+            logovanje.ShowDialog();
+            cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
+        }
+
         private void dpIzborDatuma_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if(dpIzborDatuma.SelectedDate != null)
                 btnPrikazi.IsEnabled = true;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (connection.ProveriKonekciju())
+            {
+                baza.IsprazniBazu();
+                MessageBox.Show("Baza uspešno obrisana!", "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+                MessageBox.Show("Proverite konekciju sa bazom!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }
