@@ -24,11 +24,12 @@ namespace GUI
         Baza baza = new Baza();
         Connection connection = new Connection();
 
+        Ekstraktor ekstraktor = new Ekstraktor();
+
         public MainWindow()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            btnPrikazi.IsEnabled = false;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -160,21 +161,23 @@ namespace GUI
 
         private void btnPrikazi_Click(object sender, RoutedEventArgs e)
         {
-            List<RelativnoOdstupanje> lista = baza.ProracunOdstupanja(cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), dpIzborDatuma.SelectedDate.Value.ToShortDateString());
-            dgPrikazPodataka.ItemsSource = lista;
+            if(cbOdabirGeoOblasti.SelectedItem != null && dpIzborDatuma.SelectedDate.Value != null)
+            {
+                List<RelativnoOdstupanje> lista = baza.ProracunOdstupanja(cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), dpIzborDatuma.SelectedDate.Value.ToShortDateString());
+                dgPrikazPodataka.ItemsSource = lista;
+            }
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            cbOdabirGeoOblasti.ItemsSource = null;
+            dpIzborDatuma.SelectedDate = null;
+            dgPrikazPodataka.ItemsSource = null;
+            dgGeografskaPodrucja.ItemsSource = null;
             Logovanje logovanje = new Logovanje();
             logovanje.ShowDialog();
-            cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
-        }
-
-        private void dpIzborDatuma_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if(dpIzborDatuma.SelectedDate != null)
-                btnPrikazi.IsEnabled = true;
+            if (connection.ProveriKonekciju())
+                cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -182,10 +185,34 @@ namespace GUI
             if (connection.ProveriKonekciju())
             {
                 baza.IsprazniBazu();
+                cbOdabirGeoOblasti.ItemsSource = null;
+                dpIzborDatuma.SelectedDate = null;
+                dgPrikazPodataka.ItemsSource = null;
                 MessageBox.Show("Baza uspešno obrisana!", "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
                 MessageBox.Show("Proverite konekciju sa bazom!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (!dgPrikazPodataka.Items.Count.Equals(0))
+            {
+                System.Windows.Forms.DialogResult dialogResult =
+                (System.Windows.Forms.DialogResult)MessageBox.Show("Da li ste sigurni da zelite da sačuvate podatke?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if(dialogResult.Equals(System.Windows.Forms.DialogResult.Yes))
+                {
+                    string podaci = ekstraktor.CuvanjePodatakaCSV(dgPrikazPodataka);
+                    if(!podaci.Equals(string.Empty))
+                    {
+                        string ime = podaci.Split('_')[0];
+                        string lokacija = podaci.Split('_')[1];
+                        MessageBox.Show(ime + " uspešno kreiran na lokaciji " + lokacija + " !", "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Podaci za ekstrakciju nisu dostupni!", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

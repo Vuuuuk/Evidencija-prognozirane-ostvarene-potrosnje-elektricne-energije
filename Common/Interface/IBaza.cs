@@ -15,5 +15,6 @@ namespace Common.Interface
         List<string> GeoLokacije();
         List<RelativnoOdstupanje> ProracunOdstupanja(string lokacija, string datum);
         bool FajlUcitan(string imeFajla);
+        void IsprazniBazu();
     }
 }

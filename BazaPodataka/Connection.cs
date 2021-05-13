@@ -13,13 +13,16 @@ namespace BazaPodataka
         //User ID=Milan Stevanovic;Password=resprojekat123 -> Account2
         //private static string baseConnectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=Evidencija Potrosnje;Integrated Security=True"; -> LocalDB
         //private static string baseConnectionString = @"Data Source=79.175.67.179;Initial Catalog=Evidencija Potrosnje;User ID=Vuk Radunovic;Password=vuki!"; -> RemoteDB
+        private string ip = "77.105.61.197";
 
         private static SqlConnection sqlConnection = new SqlConnection();
+        public SqlConnection SqlConnection { get => sqlConnection; set => sqlConnection = value; }
 
         public bool OtvoriRemoteKonekciju(string username, string password)
         {
+            ZatvoriKonekciju();
             bool izlaz = true;
-            string baseConnectionString = @"Data Source=79.175.67.179;Initial Catalog=Evidencija Potrosnje;";
+            string baseConnectionString = @"Data Source=" + ip + ";Initial Catalog=Evidencija Potrosnje;";
             if (username.Equals(string.Empty) || password.Equals(string.Empty))
                 izlaz = false;
 
@@ -42,6 +45,7 @@ namespace BazaPodataka
 
         public bool OtvoriLocalKonekciju() //Samo kod Mikija
         {
+            ZatvoriKonekciju();
             bool izlaz = true;
             string connectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=Evidencija Potrosnje;Integrated Security=True";
             try
@@ -71,6 +75,5 @@ namespace BazaPodataka
             return izlaz;
         }
 
-        public SqlConnection SqlConnection { get => sqlConnection; set => sqlConnection = value; }
     }
 }
