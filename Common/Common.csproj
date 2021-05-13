@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="Interface\IBaza.cs" />
     <Compile Include="Interface\IDeserijalizator.cs" />
+    <Compile Include="Interface\IEkstraktor.cs" />
+    <Compile Include="Interface\IProracun.cs" />
     <Compile Include="Interface\IValidatorPodataka.cs" />
     <Compile Include="Interface\IValidatorTipaFajla.cs" />
     <Compile Include="Models\Potrosnja.cs" />

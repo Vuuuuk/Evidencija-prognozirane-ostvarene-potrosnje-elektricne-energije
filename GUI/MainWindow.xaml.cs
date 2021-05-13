@@ -18,6 +18,7 @@ namespace GUI
         ValidatorTipaFajla validatorTipa = new ValidatorTipaFajla();
         ValidatorPodataka validatorPodataka = new ValidatorPodataka();
         Deserijalizacija deserijalizator = new Deserijalizacija();
+        Proracun proracun = new Proracun();
         OpenFileDialog ostvarena;
         OpenFileDialog prognozirana;
 
@@ -163,8 +164,16 @@ namespace GUI
         {
             if(cbOdabirGeoOblasti.SelectedItem != null && dpIzborDatuma.SelectedDate.Value != null)
             {
-                List<RelativnoOdstupanje> lista = baza.ProracunOdstupanja(cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), dpIzborDatuma.SelectedDate.Value.ToShortDateString());
-                dgPrikazPodataka.ItemsSource = lista;
+                List<Potrosnja> ostvarenaLista = 
+                    proracun.PopuniListuPotrosnje("EvidencijaOstvarenePotrosnje", 
+                    cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), 
+                    dpIzborDatuma.SelectedDate.Value.ToShortDateString());
+                List<Potrosnja> prognoziranaLista =
+                    proracun.PopuniListuPotrosnje("EvidencijaPrognoziranePotrosnje", 
+                    cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), 
+                    dpIzborDatuma.SelectedDate.Value.ToShortDateString());
+
+                dgPrikazPodataka.ItemsSource = proracun.IzracunajOdstupanje(ostvarenaLista, prognoziranaLista);
             }
         }
 

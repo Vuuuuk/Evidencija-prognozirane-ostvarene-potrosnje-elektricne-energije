@@ -13,8 +13,8 @@ namespace Common.Interface
         void UpisPotrosnje(DateTime vreme, OpenFileDialog file, Potrosnja potrosnja, DateTime datum, string tabela);
         void UpisNevalidnogFajla(DateTime vreme, OpenFileDialog file, int brojRedova);
         List<string> GeoLokacije();
-        List<RelativnoOdstupanje> ProracunOdstupanja(string lokacija, string datum);
         bool FajlUcitan(string imeFajla);
         void IsprazniBazu();
+        List<Potrosnja> VratiPotrosnju(string ime, string lokacija, string datum);
     }
 }

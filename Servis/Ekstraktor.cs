@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Common.Interface;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace Servis
 {
-    public class Ekstraktor
+    public class Ekstraktor : IEkstraktor
     {
         public string CuvanjePodatakaCSV(DataGrid podaci)
         {

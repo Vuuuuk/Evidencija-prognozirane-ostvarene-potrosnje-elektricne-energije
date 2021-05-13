@@ -58,40 +58,6 @@ namespace BazaPodataka
             return lista;
         }
 
-        public List<RelativnoOdstupanje> ProracunOdstupanja(string lokacija, string datum)
-        {
-            List<RelativnoOdstupanje> lista = new List<RelativnoOdstupanje>();
-            SqlCommand command = new SqlCommand("SELECT O.SAT, O.LOAD, P.LOAD, " +
-                                                "CAST(ABS(CAST(O.LOAD AS FLOAT) - P.LOAD) / O.LOAD * 100.00 AS NUMERIC(5, 3))" +
-                                                "FROM EvidencijaOstvarenePotrosnje O, EvidencijaPrognoziranePotrosnje P " +
-                                                "WHERE O.oblast = P.oblast " +
-                                                "AND O.sat = P.sat " +
-                                                "AND O.oblast LIKE @lokacija " +
-                                                "AND O.DATUM = @datum " +
-                                                "ORDER BY O.SAT;", connection.SqlConnection);
-
-            command.Parameters.AddWithValue("@lokacija", lokacija);
-            command.Parameters.AddWithValue("@datum", datum);
-
-            IDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                try
-                {
-                    lista.Add(new RelativnoOdstupanje(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), (double)reader.GetDecimal(3)));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-
-            reader.Close();
-
-            return lista;
-        }
-
         public bool FajlUcitan(string imeFajla)
         {
             List<string> lista = new List<string>();
@@ -127,6 +93,36 @@ namespace BazaPodataka
                                                 "DELETE FROM EvidencijaOstvarenePotrosnje; " +
                                                 "DELETE FROM EvidencijaPrognoziranePotrosnje;", connection.SqlConnection);
             command.ExecuteNonQuery();
+        }
+
+        public List<Potrosnja> VratiPotrosnju(string ime, string lokacija, string datum)
+        {
+            List<Potrosnja> lista = new List<Potrosnja>();
+
+            SqlCommand command = new SqlCommand(String.Format("SELECT sat, load, oblast FROM {0} " +
+                                                              "WHERE datum = @datum " +
+                                                              "AND oblast LIKE @lokacija " +
+                                                              "ORDER BY sat;", ime), connection.SqlConnection);
+
+            command.Parameters.AddWithValue("@lokacija", lokacija);
+            command.Parameters.AddWithValue("@datum", datum);
+
+            IDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                try
+                {
+                    lista.Add(new Potrosnja(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2)));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            reader.Close();
+
+            return lista;
         }
     }
 }

@@ -156,7 +156,9 @@
                 <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Sat" Binding="{Binding Sat}"/>
                 <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Ostvarena" Binding="{Binding OstvarenaPotrosnja}"/>
                 <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Prognozirana" Binding="{Binding PrognoziranaPotrosnja}"/>
-                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Odstupanje" Binding="{Binding Odstupanje}"/>
+                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Odstupanje" Binding="{Binding Odstupanje, StringFormat=\{0\} %}">
+                    
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
