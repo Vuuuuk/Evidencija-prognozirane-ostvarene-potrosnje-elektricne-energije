@@ -18,6 +18,7 @@ namespace GUI
         ValidatorTipaFajla validatorTipa = new ValidatorTipaFajla();
         ValidatorPodataka validatorPodataka = new ValidatorPodataka();
         Deserijalizacija deserijalizator = new Deserijalizacija();
+        Evidentiranje evidentiranje = new Evidentiranje();
         Proracun proracun = new Proracun();
         OpenFileDialog ostvarena;
         OpenFileDialog prognozirana;
@@ -116,6 +117,7 @@ namespace GUI
                 {
                     if(!ostv)
                     {
+                        evidentiranje.EvidentirajOblasti(deserijalizator.OstvarenaPotrosnja);
                         foreach (Potrosnja p in deserijalizator.OstvarenaPotrosnja)
                             baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
                         message += "[INFO] Fajl \"" + ostvarena.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
@@ -133,6 +135,7 @@ namespace GUI
                 {
                     if (!prog)
                     {
+                        evidentiranje.EvidentirajOblasti(deserijalizator.PrognoziranaPotrosnja);
                         foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
                             baza.UpisPotrosnje(DateTime.Now, prognozirana, p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
                         message += "[INFO] Fajl \"" + prognozirana.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
@@ -153,11 +156,11 @@ namespace GUI
                 message += "Unesite potrebne fajlove i/ili proverite konekciju sa bazom!" + Environment.NewLine;
                 valid = false;
             }
-
             if (valid)
                 MessageBox.Show(message, "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show(message, "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+            dgGeografskaPodrucja.ItemsSource = baza.GeoLokacije();
         }
 
         private void btnPrikazi_Click(object sender, RoutedEventArgs e)
@@ -186,7 +189,10 @@ namespace GUI
             Logovanje logovanje = new Logovanje();
             logovanje.ShowDialog();
             if (connection.ProveriKonekciju())
+            {
                 cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
+                dgGeografskaPodrucja.ItemsSource = baza.GeoLokacije();
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -197,6 +203,7 @@ namespace GUI
                 cbOdabirGeoOblasti.ItemsSource = null;
                 dpIzborDatuma.SelectedDate = null;
                 dgPrikazPodataka.ItemsSource = null;
+                dgGeografskaPodrucja.ItemsSource = baza.GeoLokacije();
                 MessageBox.Show("Baza uspešno obrisana!", "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else

@@ -13,8 +13,8 @@ namespace BazaPodataka
         //User ID=Milan Stevanovic;Password=resprojekat123 -> Account2
         //private static string baseConnectionString = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=Evidencija Potrosnje;Integrated Security=True"; -> LocalDB
         //private static string baseConnectionString = @"Data Source=79.175.67.179;Initial Catalog=Evidencija Potrosnje;User ID=Vuk Radunovic;Password=vuki!"; -> RemoteDB
-        private string ip = "77.105.61.197";
-
+        //private string ip = "188.2.117.185"; // Milan Remote
+        private string ip = "109.121.62.153"; // Vuk Remote fallback
         private static SqlConnection sqlConnection = new SqlConnection();
         public SqlConnection SqlConnection { get => sqlConnection; set => sqlConnection = value; }
 

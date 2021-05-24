@@ -45,8 +45,7 @@ namespace BazaPodataka
         public List<string> GeoLokacije()
         {
             List<string> lista = new List<string>();
-            // Promeniti tabelu na EvidencijaGEO 
-            SqlCommand command = new SqlCommand("SELECT DISTINCT(OBLAST) FROM EvidencijaOstvarenePotrosnje;", connection.SqlConnection);
+            SqlCommand command = new SqlCommand("SELECT DISTINCT(NAZIV) FROM EvidencijaGeoPodrucja;", connection.SqlConnection);
             IDataReader reader = command.ExecuteReader();
 
             while(reader.Read())
@@ -56,6 +55,15 @@ namespace BazaPodataka
             reader.Close();
 
             return lista;
+        }
+
+        public void EvidentirajGeoLokaciju(string oblast)
+        {
+            SqlCommand command = new SqlCommand("INSERT INTO EvidencijaGeoPodrucja VALUES (@oblast, @oblast);", connection.SqlConnection);
+
+            command.Parameters.AddWithValue("@oblast", oblast);
+
+            command.ExecuteNonQuery();
         }
 
         public bool FajlUcitan(string imeFajla)

@@ -157,7 +157,7 @@
                 <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Ostvarena" Binding="{Binding OstvarenaPotrosnja}"/>
                 <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Prognozirana" Binding="{Binding PrognoziranaPotrosnja}"/>
                 <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Odstupanje" Binding="{Binding Odstupanje, StringFormat=\{0\} %}">
-                    
+
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
@@ -169,9 +169,11 @@
 
         <DataGrid x:Name="dgGeografskaPodrucja" Background="#9f9f9e" IsReadOnly="True"
             ColumnHeaderStyle ="{StaticResource dg_header}"
-            Height="223" Canvas.Left="16" Canvas.Top="121" Width="279">
+            Height="223" Canvas.Left="16" Canvas.Top="121" Width="279"
+            AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Goografsko područje"/>
+                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Binding="{Binding}" Width="*" Header="Naziv"/>
+                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Binding="{Binding}" Width="*" Header="Sifra"/>
             </DataGrid.Columns>
         </DataGrid>
 
