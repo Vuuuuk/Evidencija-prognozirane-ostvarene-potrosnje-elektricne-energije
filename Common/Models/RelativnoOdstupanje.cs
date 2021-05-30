@@ -47,7 +47,7 @@ namespace Common.Models
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3:0.000}", Sat, OstvarenaPotrosnja, PrognoziranaPotrosnja, Odstupanje);
+            return String.Format("{0},{1},{2},{3:0.000}", Sat, OstvarenaPotrosnja, PrognoziranaPotrosnja, Odstupanje);
         }
     }
 }

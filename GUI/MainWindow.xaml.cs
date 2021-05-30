@@ -5,6 +5,7 @@ using Servis;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -106,6 +107,7 @@ namespace GUI
                     prog = true;
                 }
 
+                //OSTVARENA POTROSNJA LOAD & PARSE
                 using (StreamReader sr = new StreamReader(ostvarena.OpenFile()))
                 {
                     string text = sr.ReadToEnd();
@@ -117,6 +119,7 @@ namespace GUI
                     }
                 }
 
+                //PROGNOZIRANA POTROSNJA LOAD & PARSE
                 using (StreamReader sr = new StreamReader(prognozirana.OpenFile()))
                 {
                     string text = sr.ReadToEnd();
@@ -128,7 +131,7 @@ namespace GUI
                     }
                 }
 
-                // Validato podataka OSTVARENE potrosnje i upis u bazu
+                // Validator podataka OSTVARENE potrosnje i upis u bazu
                 if (validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja))
                 {
                     if(!ostv)
@@ -230,13 +233,26 @@ namespace GUI
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
+
+            List<RelativnoOdstupanje> list = new List<RelativnoOdstupanje>();
+
             if (!dgPrikazPodataka.Items.Count.Equals(0))
             {
                 System.Windows.Forms.DialogResult dialogResult =
                 (System.Windows.Forms.DialogResult)MessageBox.Show("Da li ste sigurni da zelite da sačuvate podatke?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if(dialogResult.Equals(System.Windows.Forms.DialogResult.Yes))
                 {
-                    string podaci = ekstraktor.CuvanjePodatakaCSV(dgPrikazPodataka);
+
+                    foreach (var item in dgPrikazPodataka.Items.OfType<RelativnoOdstupanje>())
+                    {
+                        var sat = item.Sat;
+                        var ostvarena = item.OstvarenaPotrosnja;
+                        var prognozirana = item.PrognoziranaPotrosnja;
+                        var odstupanje = item.Odstupanje;
+                        list.Add(new RelativnoOdstupanje(sat, ostvarena, prognozirana, odstupanje));
+                    }
+
+                    string podaci = ekstraktor.CuvanjePodatakaCSV(list);
                     if(!podaci.Equals(string.Empty))
                     {
                         string ime = podaci.Split('_')[0];

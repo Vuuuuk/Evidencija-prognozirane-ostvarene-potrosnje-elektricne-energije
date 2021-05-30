@@ -1,4 +1,5 @@
 ﻿using Common.Interface;
+using Common.Models;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Servis
 {
     public class Ekstraktor : IEkstraktor
     {
-        public string CuvanjePodatakaCSV(DataGrid podaci)
+        public string CuvanjePodatakaCSV(List<RelativnoOdstupanje> relodstupanje)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "CSV (*.csv) | *.csv";
@@ -36,15 +37,8 @@ namespace Servis
                 }
                 if(!fileError)
                 {
-                    podaci.SelectAllCells();
-                    podaci.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-                    ApplicationCommands.Copy.Execute(null, podaci);
-                    podaci.UnselectAllCells();
-                    string result = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
-                    File.AppendAllText(sfd.FileName, result, UnicodeEncoding.UTF8);
-
+                    File.AppendAllLines(sfd.FileName, relodstupanje.Select(x => string.Join(",", x)));
                     return sfd.SafeFileName + "_" + sfd.FileName;
-
                 }
             }
             return string.Empty;

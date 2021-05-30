@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace Common.Interface
 {
     public interface IEkstraktor
     {
-        string CuvanjePodatakaCSV(DataGrid podaci);
+        string CuvanjePodatakaCSV(List<RelativnoOdstupanje> relodstupanje);
     }
 }
