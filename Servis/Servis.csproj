@@ -54,6 +54,8 @@
     <Compile Include="Deserijalizator.cs" />
     <Compile Include="Ekstraktor.cs" />
     <Compile Include="Evidentiranje.cs" />
+    <Compile Include="Exceptions\PrazanArgumentException.cs" />
+    <Compile Include="Exceptions\PrazanXMLException.cs" />
     <Compile Include="PristupPodacima.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proracun.cs" />
