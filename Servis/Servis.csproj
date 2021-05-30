@@ -54,6 +54,7 @@
     <Compile Include="Deserijalizator.cs" />
     <Compile Include="Ekstraktor.cs" />
     <Compile Include="Evidentiranje.cs" />
+    <Compile Include="PristupPodacima.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proracun.cs" />
     <Compile Include="ValidatorPodataka.cs" />

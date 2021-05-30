@@ -20,11 +20,10 @@ namespace GUI
         Deserijalizacija deserijalizator = new Deserijalizacija();
         Evidentiranje evidentiranje = new Evidentiranje();
         Proracun proracun = new Proracun();
+        PristupPodacima pristup = new PristupPodacima();
+
         OpenFileDialog ostvarena;
         OpenFileDialog prognozirana;
-
-        Baza baza = new Baza();
-        Connection connection = new Connection();
 
         Ekstraktor ekstraktor = new Ekstraktor();
 
@@ -41,7 +40,7 @@ namespace GUI
 
         private void btn_izlaz_Click(object sender, RoutedEventArgs e)
         {
-            connection.ZatvoriKonekciju();
+            pristup.ZatvaranjeKonekcije();
             this.Close();
         }
 
@@ -92,15 +91,15 @@ namespace GUI
             bool ostv = false, prog = false; // ne postoje u bazi
             string message = "";
 
-            if (ostvarena != null && prognozirana != null && connection.ProveriKonekciju())
+            if (ostvarena != null && prognozirana != null && pristup.ProveraKonekcije())
             {
-                if(baza.FajlUcitan(ostvarena.SafeFileName))
+                if(pristup.FajlUcitan(ostvarena.SafeFileName))
                 {
                     message += "[INFO] Fajl \"" + ostvarena.SafeFileName + "\" već postoji u bazi podataka!" + Environment.NewLine;
                     valid = false;
                     ostv = true;
                 }
-                if (baza.FajlUcitan(prognozirana.SafeFileName))
+                if (pristup.FajlUcitan(prognozirana.SafeFileName))
                 {
                     message += "[INFO] Fajl \"" + prognozirana.SafeFileName + "\" već postoji u bazi podataka!" + Environment.NewLine;
                     valid = false;
@@ -119,13 +118,13 @@ namespace GUI
                     {
                         evidentiranje.EvidentirajOblasti(deserijalizator.OstvarenaPotrosnja);
                         foreach (Potrosnja p in deserijalizator.OstvarenaPotrosnja)
-                            baza.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
+                            pristup.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
                         message += "[INFO] Fajl \"" + ostvarena.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
                     }
                 }
                 else
                 {
-                    baza.UpisNevalidnogFajla(DateTime.Now, ostvarena, deserijalizator.BrojRedova(ostvarena));
+                    pristup.UpisNevalidnogFajla(DateTime.Now, ostvarena, deserijalizator.BrojRedova(ostvarena));
                     message += "[ERROR] Fajl \"" + ostvarena.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
                     valid = false;
                 }
@@ -137,18 +136,18 @@ namespace GUI
                     {
                         evidentiranje.EvidentirajOblasti(deserijalizator.PrognoziranaPotrosnja);
                         foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
-                            baza.UpisPotrosnje(DateTime.Now, prognozirana, p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
+                            pristup.UpisPotrosnje(DateTime.Now, prognozirana, p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
                         message += "[INFO] Fajl \"" + prognozirana.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
                     }
                 }
                 else
                 {
-                    baza.UpisNevalidnogFajla(DateTime.Now, prognozirana, deserijalizator.BrojRedova(prognozirana));
+                    pristup.UpisNevalidnogFajla(DateTime.Now, prognozirana, deserijalizator.BrojRedova(prognozirana));
                     message += "[ERROR] Fajl \"" + prognozirana.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
                     valid = false;
                 }
 
-                cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
+                cbOdabirGeoOblasti.ItemsSource = pristup.GeoLokacije();
 
             }
             else
@@ -160,7 +159,7 @@ namespace GUI
                 MessageBox.Show(message, "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show(message, "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
-            dgGeografskaPodrucja.ItemsSource = baza.GeoLokacije();
+            dgGeografskaPodrucja.ItemsSource = pristup.GeoLokacije();
         }
 
         private void btnPrikazi_Click(object sender, RoutedEventArgs e)
@@ -188,22 +187,22 @@ namespace GUI
             dgGeografskaPodrucja.ItemsSource = null;
             Logovanje logovanje = new Logovanje();
             logovanje.ShowDialog();
-            if (connection.ProveriKonekciju())
+            if (pristup.ProveraKonekcije())
             {
-                cbOdabirGeoOblasti.ItemsSource = baza.GeoLokacije();
-                dgGeografskaPodrucja.ItemsSource = baza.GeoLokacije();
+                cbOdabirGeoOblasti.ItemsSource = pristup.GeoLokacije();
+                dgGeografskaPodrucja.ItemsSource = pristup.GeoLokacije();
             }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (connection.ProveriKonekciju())
+            if (pristup.ProveraKonekcije())
             {
-                baza.IsprazniBazu();
+                pristup.IsprazniBazu();
                 cbOdabirGeoOblasti.ItemsSource = null;
                 dpIzborDatuma.SelectedDate = null;
                 dgPrikazPodataka.ItemsSource = null;
-                dgGeografskaPodrucja.ItemsSource = baza.GeoLokacije();
+                dgGeografskaPodrucja.ItemsSource = pristup.GeoLokacije();
                 MessageBox.Show("Baza uspešno obrisana!", "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
