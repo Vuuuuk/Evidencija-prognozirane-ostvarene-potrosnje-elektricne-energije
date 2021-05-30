@@ -95,16 +95,5 @@ namespace Servis
             DateTime datum = DateTime.Parse(filename.Split(splitChar)[3] + "." + filename.Split(splitChar)[2] + "." + filename.Split(splitChar)[1]);
             return datum;
         }
-
-        public int BrojRedova(OpenFileDialog ofd)
-        {
-
-            //EXCEPTION
-            if (ofd.FileName.Equals(null) || ofd.FileName.Equals(string.Empty))
-                throw new PrazanArgumentException();
-
-            string[] readText = System.IO.File.ReadAllLines(ofd.FileName);
-            return readText.Length;
-        }
     }
 }

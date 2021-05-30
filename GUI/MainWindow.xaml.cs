@@ -145,7 +145,8 @@ namespace GUI
                 }
                 else
                 {
-                    pristup.UpisNevalidnogFajla(DateTime.Now, ostvarena.SafeFileName, ostvarena.FileName.ToString(), deserijalizator.BrojRedova(ostvarena));
+
+                    pristup.UpisNevalidnogFajla(DateTime.Now, ostvarena.SafeFileName, ostvarena.FileName.ToString(), System.IO.File.ReadAllLines(ostvarena.FileName).Length);
                     message += "[ERROR] Fajl \"" + ostvarena.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
                     valid = false;
                 }
@@ -164,7 +165,7 @@ namespace GUI
                 }
                 else
                 {
-                    pristup.UpisNevalidnogFajla(DateTime.Now, prognozirana.SafeFileName, prognozirana.FileName.ToString(), deserijalizator.BrojRedova(prognozirana));
+                    pristup.UpisNevalidnogFajla(DateTime.Now, prognozirana.SafeFileName, prognozirana.FileName.ToString(), System.IO.File.ReadAllLines(prognozirana.FileName).Length);
                     message += "[ERROR] Fajl \"" + prognozirana.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
                     valid = false;
                 }
