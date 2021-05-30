@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BazaPodataka", "BazaPodatak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servis", "Servis\Servis.csproj", "{0D20C765-6C12-459B-B1BF-1E4DC78679A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServisTest", "ServisTest\ServisTest.csproj", "{811B52FA-E7A5-4A91-B51F-5C3D783C71EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0D20C765-6C12-459B-B1BF-1E4DC78679A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D20C765-6C12-459B-B1BF-1E4DC78679A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D20C765-6C12-459B-B1BF-1E4DC78679A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{811B52FA-E7A5-4A91-B51F-5C3D783C71EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811B52FA-E7A5-4A91-B51F-5C3D783C71EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811B52FA-E7A5-4A91-B51F-5C3D783C71EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811B52FA-E7A5-4A91-B51F-5C3D783C71EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
