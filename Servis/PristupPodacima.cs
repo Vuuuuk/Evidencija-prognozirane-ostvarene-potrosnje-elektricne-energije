@@ -25,14 +25,19 @@ namespace Servis
             return connection.ProveriKonekciju();
         }
 
-        public void UpisPotrosnje(DateTime vreme, OpenFileDialog file, Potrosnja potrosnja, DateTime datum, string tabela)
+        public void IzvrsiUpisSvihPodataka()
         {
-            baza.UpisPotrosnje(vreme, file, potrosnja, datum, tabela);
+            baza.IzvrsiUpisSvihPodataka();
         }
 
-        public void UpisNevalidnogFajla(DateTime vreme, OpenFileDialog file, int brojRedova)
+        public void UpisPotrosnje(DateTime vreme, string safeFileName, string lokacija, Potrosnja potrosnja, DateTime datum, string tabela)
         {
-            baza.UpisNevalidnogFajla(vreme, file, brojRedova);
+            baza.UpisPotrosnje(vreme, safeFileName, lokacija, potrosnja, datum, tabela);
+        }
+
+        public void UpisNevalidnogFajla(DateTime vreme, string safeFileName, string lokacija, int brojRedova)
+        {
+            baza.UpisNevalidnogFajla(vreme, safeFileName, lokacija, brojRedova);
         }
 
         public List<string> GeoLokacije()

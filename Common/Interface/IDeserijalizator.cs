@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,9 @@ namespace Common.Interface
 {
     public interface IDeserijalizator
     {
-        void LoadXMLOstvarena(OpenFileDialog ofdOstvarena);
+        void LoadXMLOstvarena(MemoryStream ms);
 
-        void LoadXMLPrognozirana(OpenFileDialog ofdPrognozirana);
+        void LoadXMLPrognozirana(MemoryStream ms);
 
         void ParsiranjeXMLOstvarena();
 

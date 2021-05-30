@@ -14,29 +14,48 @@ namespace BazaPodataka
     public class Baza : IBaza
     {
         private Connection connection = new Connection();
+        private string fullCommand = String.Empty;
 
-        public void UpisPotrosnje(DateTime vreme, OpenFileDialog file, Potrosnja potrosnja, DateTime datum, string tabela)
+        public void IzvrsiUpisSvihPodataka()
+        {
+            SqlCommand command = new SqlCommand(fullCommand, connection.SqlConnection);
+            Console.WriteLine("FULL TEST : \n" + fullCommand);
+            command.ExecuteNonQuery();
+            fullCommand = string.Empty;
+        }
+
+        public void UpisPotrosnje(DateTime vreme, string safeFileName, string lokacija, Potrosnja potrosnja, DateTime datum, string tabela)
         {
             SqlCommand command = new SqlCommand(String.Format("INSERT INTO {0} VALUES (@vreme, @ime, @lokacija, @sat, @load, @oblast, @datum);", tabela), connection.SqlConnection);
 
             command.Parameters.AddWithValue("@vreme", vreme.ToString("HH:mm"));
-            command.Parameters.AddWithValue("@ime", file.SafeFileName);
-            command.Parameters.AddWithValue("@lokacija", file.FileName.ToString());
+            command.Parameters.AddWithValue("@ime", safeFileName);
+            command.Parameters.AddWithValue("@lokacija", lokacija);
             command.Parameters.AddWithValue("@sat", potrosnja.Sat);
             command.Parameters.AddWithValue("@load", potrosnja.Load);
             command.Parameters.AddWithValue("@oblast", potrosnja.Oblast);
             command.Parameters.AddWithValue("@datum", datum.ToShortDateString());
 
-            command.ExecuteNonQuery();
+
+            string oneCommand = command.CommandText;
+            foreach (SqlParameter p in command.Parameters)
+            {
+                if (p.ParameterName.Equals("@vreme") || p.ParameterName.Equals("@ime") || p.ParameterName.Equals("@lokacija") || p.ParameterName.Equals("@oblast") || p.ParameterName.Equals("@datum"))
+                    oneCommand = oneCommand.Replace(p.ParameterName, "'" + p.Value.ToString() + "'");
+                else
+                    oneCommand = oneCommand.Replace(p.ParameterName, p.Value.ToString());
+            }
+
+            fullCommand += oneCommand + Environment.NewLine;
         }
 
-        public void UpisNevalidnogFajla(DateTime vreme, OpenFileDialog file, int brojRedova)
+        public void UpisNevalidnogFajla(DateTime vreme, string safeFileName, string lokacija, int brojRedova)
         {
             SqlCommand command = new SqlCommand("INSERT INTO EvidencijaNevalidnihFajlova VALUES (@vreme, @ime, @lokacija, @redovi);", connection.SqlConnection);
 
             command.Parameters.AddWithValue("@vreme", vreme.ToString("HH:mm"));
-            command.Parameters.AddWithValue("@ime", file.SafeFileName);
-            command.Parameters.AddWithValue("@lokacija", file.FileName.ToString());
+            command.Parameters.AddWithValue("@ime", safeFileName);
+            command.Parameters.AddWithValue("@lokacija", lokacija);
             command.Parameters.AddWithValue("@redovi", brojRedova);
 
             command.ExecuteNonQuery();

@@ -10,8 +10,9 @@ namespace Common.Interface
 {
     public interface IBaza
     {
-        void UpisPotrosnje(DateTime vreme, OpenFileDialog file, Potrosnja potrosnja, DateTime datum, string tabela);
-        void UpisNevalidnogFajla(DateTime vreme, OpenFileDialog file, int brojRedova);
+        void IzvrsiUpisSvihPodataka();
+        void UpisPotrosnje(DateTime vreme, string safeFileName, string lokacija, Potrosnja potrosnja, DateTime datum, string tabela);
+        void UpisNevalidnogFajla(DateTime vreme, string safeFileName, string lokacija, int brojRedova);
         List<string> GeoLokacije();
         bool FajlUcitan(string imeFajla);
         void IsprazniBazu();

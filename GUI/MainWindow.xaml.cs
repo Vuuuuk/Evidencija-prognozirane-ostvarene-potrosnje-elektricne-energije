@@ -106,10 +106,27 @@ namespace GUI
                     prog = true;
                 }
 
-                deserijalizator.LoadXMLOstvarena(ostvarena);
-                deserijalizator.LoadXMLPrognozirana(prognozirana);
-                deserijalizator.ParsiranjeXMLOstvarena();
-                deserijalizator.ParsiranjeXMLPrognozirana();
+                using (StreamReader sr = new StreamReader(ostvarena.OpenFile()))
+                {
+                    string text = sr.ReadToEnd();
+                    byte[] niz = System.Text.Encoding.UTF8.GetBytes(text);
+                    using (MemoryStream ms = new MemoryStream(niz))
+                    {
+                        deserijalizator.LoadXMLOstvarena(ms);
+                        deserijalizator.ParsiranjeXMLOstvarena();
+                    }
+                }
+
+                using (StreamReader sr = new StreamReader(prognozirana.OpenFile()))
+                {
+                    string text = sr.ReadToEnd();
+                    byte[] niz = System.Text.Encoding.UTF8.GetBytes(text);
+                    using (MemoryStream ms = new MemoryStream(niz))
+                    {
+                        deserijalizator.LoadXMLPrognozirana(ms);
+                        deserijalizator.ParsiranjeXMLPrognozirana();
+                    }
+                }
 
                 // Validato podataka OSTVARENE potrosnje i upis u bazu
                 if (validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja))
@@ -118,13 +135,14 @@ namespace GUI
                     {
                         evidentiranje.EvidentirajOblasti(deserijalizator.OstvarenaPotrosnja);
                         foreach (Potrosnja p in deserijalizator.OstvarenaPotrosnja)
-                            pristup.UpisPotrosnje(DateTime.Now, ostvarena, p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
+                            pristup.UpisPotrosnje(DateTime.Now, ostvarena.SafeFileName, ostvarena.FileName.ToString(), p, deserijalizator.ParseDatum(ostvarena.SafeFileName), "EvidencijaOstvarenePotrosnje");
+                        pristup.IzvrsiUpisSvihPodataka();
                         message += "[INFO] Fajl \"" + ostvarena.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
                     }
                 }
                 else
                 {
-                    pristup.UpisNevalidnogFajla(DateTime.Now, ostvarena, deserijalizator.BrojRedova(ostvarena));
+                    pristup.UpisNevalidnogFajla(DateTime.Now, ostvarena.SafeFileName, ostvarena.FileName.ToString(), deserijalizator.BrojRedova(ostvarena));
                     message += "[ERROR] Fajl \"" + ostvarena.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
                     valid = false;
                 }
@@ -136,13 +154,14 @@ namespace GUI
                     {
                         evidentiranje.EvidentirajOblasti(deserijalizator.PrognoziranaPotrosnja);
                         foreach (Potrosnja p in deserijalizator.PrognoziranaPotrosnja)
-                            pristup.UpisPotrosnje(DateTime.Now, prognozirana, p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
+                            pristup.UpisPotrosnje(DateTime.Now, prognozirana.SafeFileName, prognozirana.FileName.ToString(), p, deserijalizator.ParseDatum(prognozirana.SafeFileName), "EvidencijaPrognoziranePotrosnje");
+                        pristup.IzvrsiUpisSvihPodataka();
                         message += "[INFO] Fajl \"" + prognozirana.SafeFileName + "\" uspešno upisan u bazu!" + Environment.NewLine;
                     }
                 }
                 else
                 {
-                    pristup.UpisNevalidnogFajla(DateTime.Now, prognozirana, deserijalizator.BrojRedova(prognozirana));
+                    pristup.UpisNevalidnogFajla(DateTime.Now, prognozirana.SafeFileName, prognozirana.FileName.ToString(), deserijalizator.BrojRedova(prognozirana));
                     message += "[ERROR] Fajl \"" + prognozirana.SafeFileName + "\" nema validne podatke! [EVIDENTIRANO]" + Environment.NewLine;
                     valid = false;
                 }

@@ -31,22 +31,18 @@ namespace Servis
             set { prognoziranaPotrosnja = value; }
         }
 
-        public void LoadXMLOstvarena(OpenFileDialog ofdOstvarena)
+        public void LoadXMLOstvarena(MemoryStream ms)
         {
-            using (Stream stream = ofdOstvarena.OpenFile())
-            {
-                xmlOstvarena = new XmlDocument();
-                xmlOstvarena.Load(stream);
-            }
+            StreamReader sr = new StreamReader(ms);
+            xmlOstvarena = new XmlDocument();
+            xmlOstvarena.Load(sr);
         }
 
-        public void LoadXMLPrognozirana(OpenFileDialog ofdPrognozirana)
+        public void LoadXMLPrognozirana(MemoryStream ms)
         {
-            using (Stream stream = ofdPrognozirana.OpenFile())
-            {
-                xmlPrognozirana = new XmlDocument();
-                xmlPrognozirana.Load(stream);
-            }
+            StreamReader sr = new StreamReader(ms);
+            xmlPrognozirana = new XmlDocument();
+            xmlPrognozirana.Load(sr);
         }
 
         public void ParsiranjeXMLOstvarena()
