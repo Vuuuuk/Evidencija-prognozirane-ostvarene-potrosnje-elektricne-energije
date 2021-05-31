@@ -1,5 +1,4 @@
-﻿using BazaPodataka;
-using Common.Models;
+﻿using Common.Models;
 using Microsoft.Win32;
 using Servis;
 using System;
@@ -18,15 +17,15 @@ namespace GUI
     {
         ValidatorTipaFajla validatorTipa = new ValidatorTipaFajla();
         ValidatorPodataka validatorPodataka = new ValidatorPodataka();
-        Deserijalizacija deserijalizator = new Deserijalizacija();
+        DPO.Deserijalizator deserijalizator = new DPO.Deserijalizator();
         Evidentiranje evidentiranje = new Evidentiranje();
         Proracun proracun = new Proracun();
-        PristupPodacima pristup = new PristupPodacima();
+        DAO.PristupPodacima pristup = new DAO.PristupPodacima();
 
         OpenFileDialog ostvarena;
         OpenFileDialog prognozirana;
 
-        Ekstraktor ekstraktor = new Ekstraktor();
+        DPO.Ekstraktor ekstraktor = new DPO.Ekstraktor();
 
         public MainWindow()
         {

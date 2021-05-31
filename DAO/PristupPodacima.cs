@@ -1,17 +1,16 @@
 ﻿using BazaPodataka;
 using Common.Interface;
 using Common.Models;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Servis
+namespace DAO
 {
     public class PristupPodacima : IBaza
-    { 
+    {
         Baza baza = new Baza();
         Connection connection = new Connection();
 
@@ -59,5 +58,18 @@ namespace Servis
         {
             return baza.VratiPotrosnju(ime, lokacija, datum);
         }
+
+        public bool OtvoriRemoteKonekciju(string username, string password)
+        {
+           return connection.OtvoriRemoteKonekciju(username, password);
+        }
+
+        //Milanova beskorisna metoda
+        public bool OtvoriLocalKonekciju() 
+        {
+            return connection.OtvoriLocalKonekciju();
+        }
+
+
     }
 }

@@ -8,10 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace Servis
+namespace DPO
 {
     public class Ekstraktor : IEkstraktor
     {
@@ -21,9 +19,9 @@ namespace Servis
             sfd.Filter = "CSV (*.csv) | *.csv";
             sfd.FileName = "Evidencija relativnog odstupanja.csv";
             bool fileError = false;
-            if(sfd.ShowDialog().Equals(true))
+            if (sfd.ShowDialog().Equals(true))
             {
-                if(File.Exists(sfd.FileName))
+                if (File.Exists(sfd.FileName))
                 {
                     try
                     {
@@ -35,7 +33,7 @@ namespace Servis
                         MessageBox.Show("Neuspšno kreiranje fajla, molimo pokušajte ponovo!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                if(!fileError)
+                if (!fileError)
                 {
                     File.AppendAllLines(sfd.FileName, relodstupanje.Select(x => string.Join(",", x)));
                     return sfd.SafeFileName + "_" + sfd.FileName;

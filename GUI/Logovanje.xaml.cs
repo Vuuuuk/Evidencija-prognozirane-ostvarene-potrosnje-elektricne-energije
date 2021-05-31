@@ -1,5 +1,4 @@
-﻿using BazaPodataka;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +19,7 @@ namespace GUI
     /// </summary>
     public partial class Logovanje : Window
     {
-        Connection connection = new Connection();
+        DAO.PristupPodacima pristup = new DAO.PristupPodacima();
         public Logovanje()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -45,7 +44,7 @@ namespace GUI
         {
             if(rbRemote.IsChecked == true)
             {
-                if (!connection.OtvoriRemoteKonekciju(tbUsername.Text.Trim(), tbPassword.Password))
+                if (!pristup.OtvoriRemoteKonekciju(tbUsername.Text.Trim(), tbPassword.Password))
                     MessageBox.Show("Pogrešno korisničko ime ili lozinka!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
                 {
@@ -55,7 +54,7 @@ namespace GUI
             }
             else
             {
-                if (!connection.OtvoriLocalKonekciju())
+                if (!pristup.OtvoriLocalKonekciju())
                     MessageBox.Show("Neuspela konekcija sa bazom, molimo pokušajte ponovo!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
                 {

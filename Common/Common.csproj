@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\PrazanArgumentException.cs" />
+    <Compile Include="Exceptions\PrazanXMLException.cs" />
     <Compile Include="Interface\IBaza.cs" />
     <Compile Include="Interface\IDeserijalizator.cs" />
     <Compile Include="Interface\IEkstraktor.cs" />

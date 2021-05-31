@@ -1,7 +1,6 @@
-﻿using Common.Interface;
+﻿using Common.Exceptions;
+using Common.Interface;
 using Common.Models;
-using Microsoft.Win32;
-using Servis.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Servis
+namespace DPO
 {
-    public class Deserijalizacija : IDeserijalizator
+    public class Deserijalizator : IDeserijalizator
     {
         public XmlDocument xmlOstvarena;
         public XmlDocument xmlPrognozirana;

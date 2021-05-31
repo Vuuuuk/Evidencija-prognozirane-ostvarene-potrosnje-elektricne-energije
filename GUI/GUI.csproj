@@ -109,13 +109,17 @@
     <Resource Include="Assets\Meni\btn_unos.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BazaPodataka\BazaPodataka.csproj">
-      <Project>{adf68993-b2ad-475b-9b19-78e33cdddf3c}</Project>
-      <Name>BazaPodataka</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{1d775cfe-8f07-44c1-9f35-75d4d49249d1}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAO\DAO.csproj">
+      <Project>{a9a80339-efd9-42b4-be06-c4d3303a186d}</Project>
+      <Name>DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DPO\DPO.csproj">
+      <Project>{5fe00875-b056-4bf0-8982-df943210b1ef}</Project>
+      <Name>DPO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servis\Servis.csproj">
       <Project>{0d20c765-6c12-459b-b1bf-1e4dc78679a2}</Project>
