@@ -21,7 +21,7 @@ namespace GUI
         DPO.Deserijalizator deserijalizator = new DPO.Deserijalizator();
         DAO.PristupPodacima pristup = new DAO.PristupPodacima();
         Evidentiranje evidentiranje = new Evidentiranje(DAO.PristupPodacima.InitBaza()); //init baze za constructor injection
-        Proracun proracun = new Proracun();
+        Proracun proracun = new Proracun(DAO.PristupPodacima.InitBaza());
 
         OpenFileDialog ostvarena;
         OpenFileDialog prognozirana;
@@ -132,7 +132,7 @@ namespace GUI
                 }
 
                 // Validator podataka OSTVARENE potrosnje i upis u bazu
-                if (validatorPodataka.Validator(deserijalizator.OstvarenaPotrosnja))
+                if (validatorPodataka.Validator(deserijalizator.ParseDatum(ostvarena.SafeFileName), deserijalizator.OstvarenaPotrosnja))
                 {
                     if(!ostv)
                     {
@@ -152,7 +152,7 @@ namespace GUI
                 }
 
                 // Validato podataka PROGNOZIRANE potrosnje i upis u bazu
-                if (validatorPodataka.Validator(deserijalizator.PrognoziranaPotrosnja))
+                if (validatorPodataka.Validator(deserijalizator.ParseDatum(prognozirana.SafeFileName), deserijalizator.PrognoziranaPotrosnja))
                 {
                     if (!prog)
                     {

@@ -19,7 +19,7 @@ namespace BazaPodataka
         public void IzvrsiUpisSvihPodataka()
         {
             SqlCommand command = new SqlCommand(fullCommand, connection.SqlConnection);
-            Console.WriteLine("FULL TEST : \n" + fullCommand);
+            //Console.WriteLine("FULL TEST : \n" + fullCommand);
             command.ExecuteNonQuery();
             fullCommand = string.Empty;
         }

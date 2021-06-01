@@ -9,7 +9,5 @@ namespace Common.Interface
     public interface IValidatorTipaFajla
     {
         bool ValidatorTipa(string imeFajla);
-
-        bool ValidatorImena(string imeFajla, string template);
     }
 }

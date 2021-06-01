@@ -32,33 +32,14 @@ namespace ServisTest
         }
 
         [Test]
-        public void EvidentirajOblastiPrazanArgument()
+        public void EvidentirajOblastiPrazanArgumentTest()
         {
             evidentiranjeTestObjekat = new Evidentiranje(bazaMoq.Object);
             Assert.Throws<PrazanArgumentException>(() => evidentiranjeTestObjekat.EvidentirajOblasti(new List<IPotrosnja>()));
         }
 
         [Test]
-        public void EvidentirajOblastiPraznaLista()
-        {
-            List<IPotrosnja> potrosnja = new List<IPotrosnja>();
-
-            bazaMoq.Setup(_ => _.GeoLokacije()).Returns(new List<string>() { "VOJ", "BGD" });
-
-            IPotrosnja p1 = new Potrosnja();
-            p1.sat = 1;
-            p1.load = 3000;
-            p1.oblast = "VOJ";
-
-            potrosnja.Add(p1);
-
-            evidentiranjeTestObjekat = new Evidentiranje(bazaMoq.Object);
-
-            Assert.Throws<PraznaListaException>(() => evidentiranjeTestObjekat.EvidentirajOblasti(potrosnja));
-        }
-
-        [Test]
-        public void EvidentirajOblastiDobarArgument()
+        public void EvidentirajOblastiDobarArgumentTest()
         {
             List<IPotrosnja> potrosnja = new List<IPotrosnja>();
 

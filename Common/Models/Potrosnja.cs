@@ -21,5 +21,19 @@ namespace Common.Models
             this.load = load;
             this.oblast = oblast;
         }
+
+        public override bool Equals(object obj)
+        {
+            Potrosnja p = obj as Potrosnja;
+            if (p.sat == sat && p.load == load && p.oblast == oblast)
+                return true;
+            else
+                return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

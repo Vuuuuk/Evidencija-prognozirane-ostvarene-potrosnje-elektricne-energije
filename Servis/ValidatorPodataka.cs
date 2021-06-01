@@ -1,4 +1,5 @@
-﻿using Common.Interface;
+﻿using Common.Exceptions;
+using Common.Interface;
 using Common.Models;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,20 @@ namespace Servis
 {
     public class ValidatorPodataka : IValidatorPodataka
     {
-        private static int brojSatiUDanu = 24;
-
-        public bool Validator(List<IPotrosnja> list)
+        public bool Validator(DateTime datum, List<IPotrosnja> list)
         {
+            //EXCEPTION
+            if(datum == DateTime.MinValue || list.Count.Equals(0))
+            {
+                throw new PrazanArgumentException();
+            }
+            int brojSatiUDanu = 24;
+            var dst = TimeZone.CurrentTimeZone.GetDaylightChanges(datum.Year);
+            if (dst.End > datum && dst.End < datum.AddDays(1))
+                brojSatiUDanu = 23;
+            if (dst.Start > datum && dst.Start < datum.AddDays(1))
+                brojSatiUDanu = 25;
+
             bool valid = true;
             var oblasti = list.Select(x => x.oblast).Distinct();
 
@@ -23,6 +34,7 @@ namespace Servis
                 if (sati.Count() != brojSatiUDanu)
                 {
                     Console.WriteLine("[GREŠKA] Nevalidan fajl -> Broj sati u danu za oblast {0} = {1}", ob, sati.Count());
+                    Console.WriteLine("Datum {0} ima {1} sati.", datum.ToShortDateString(), brojSatiUDanu);
                     valid = false;
                 }
             }

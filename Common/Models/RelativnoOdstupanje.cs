@@ -26,5 +26,21 @@ namespace Common.Models
         {
             return String.Format("{0},{1},{2},{3:0.000}", sat, ostvarenaPotrosnja, prognoziranaPotrosnja, odstupanje);
         }
+
+        public override bool Equals(object obj)
+        {
+            RelativnoOdstupanje r = obj as RelativnoOdstupanje;
+            if(r != null)
+            {
+                if (r.sat == sat && r.ostvarenaPotrosnja == ostvarenaPotrosnja && r.prognoziranaPotrosnja == prognoziranaPotrosnja && r.odstupanje == odstupanje)
+                    return true;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

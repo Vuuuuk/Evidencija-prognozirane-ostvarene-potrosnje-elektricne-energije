@@ -36,15 +36,10 @@ namespace Servis
                     oblastiZaEvidentiranje.Add(oblast);
             }
 
-            if (!oblastiZaEvidentiranje.Count.Equals(0))
+            if (oblastiZaEvidentiranje.Count() != 0)
             {
                 foreach (string oblast in oblastiZaEvidentiranje)
                     baza.EvidentirajGeoLokaciju(oblast);
-            }
-            else
-            {
-                //EXCEPTION
-                throw new PraznaListaException();
             }
 
             return oblastiZaEvidentiranje;
