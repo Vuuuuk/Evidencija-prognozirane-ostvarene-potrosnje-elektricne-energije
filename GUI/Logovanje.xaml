@@ -1,0 +1,81 @@
+﻿<Window x:Class="GUI.Logovanje"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="Izbor korisnika za pristup bazi podataka"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        WindowStyle = "None"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        Background="#212121">
+
+    <Window.Resources>
+
+        <!-- DUGMIC EFEKAT -->
+
+        <Style x:Key="btn_efekat" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="btn_okvir" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- DUGMIC EFEKAT -->
+
+    </Window.Resources>
+
+    <Grid Width="250" Height="205">
+
+        <Button x:Name="btnIzlaz" 
+        Style="{StaticResource btn_efekat}"
+        Width="21" Height="21"
+        Background="Transparent"
+        Click="btnIzlaz_Click" Margin="223,6,6,178">
+            <Image Source="Assets\Meni\btn_meni_izlaz.png"/>
+        </Button>
+
+        <Label 
+            x:Name="lblUsername" Content="Korsničko ime:" 
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Foreground="#9f9f9e" Canvas.Left="71" Canvas.Top="43" Margin="0,59,0,0"/>
+
+        <TextBox x:Name="tbUsername" Background="#9f9f9e" FontFamily="Consolas" FontSize="14" 
+            Canvas.Left="469" Canvas.Top="14" Width="140" Height="24" Margin="100,59,10,122"/>
+
+        <Label 
+            x:Name="lblPassword" Content="Lozinka:" 
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="55" Foreground="#9f9f9e" Canvas.Left="71" Canvas.Top="43" Margin="0,105,0,0"/>
+
+        <PasswordBox x:Name="tbPassword" Background="#9f9f9e" FontFamily="Consolas" FontSize="14" 
+            Canvas.Left="469" Canvas.Top="14" Width="140" Height="24" Margin="100,105,10,76"/>
+
+        <Button x:Name="btnPotvrdi" Content="POTVRDI" 
+         HorizontalAlignment="Left" Margin="65,165,0,0" 
+         VerticalAlignment="Top" Width="120" Height="30" 
+         Background="#9f9f9e" FontFamily="Consolas" 
+         FontSize="18" Click="btnPotvrdi_Click"/>
+
+        <RadioButton 
+            x:Name="rbRemote" Content="Remote" GroupName="Logovanje"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="65" Foreground="#9f9f9e" Canvas.Left="71" Canvas.Top="43" Margin="2,25,0,0" Checked="rbRemote_Checked"/>
+
+        <RadioButton 
+            x:Name="rbLocal" Content="Local" GroupName="Logovanje"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="65" Foreground="#9f9f9e" Margin="2,5,0,0" Checked="rbLocal_Checked"/>
+
+    </Grid>
+
+</Window>

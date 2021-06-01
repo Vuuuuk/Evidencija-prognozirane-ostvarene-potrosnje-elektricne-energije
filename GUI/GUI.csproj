@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Logovanje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,6 +67,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logovanje.xaml.cs">
+      <DependentUpon>Logovanje.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -93,6 +101,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Meni\btn_export.png" />
+    <Resource Include="Assets\Meni\btn_meni_izlaz.png" />
+    <Resource Include="Assets\Meni\btn_pretraga.png" />
+    <Resource Include="Assets\Meni\btn_unos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{1d775cfe-8f07-44c1-9f35-75d4d49249d1}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAO\DAO.csproj">
+      <Project>{a9a80339-efd9-42b4-be06-c4d3303a186d}</Project>
+      <Name>DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DPO\DPO.csproj">
+      <Project>{5fe00875-b056-4bf0-8982-df943210b1ef}</Project>
+      <Name>DPO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servis\Servis.csproj">
+      <Project>{0d20c765-6c12-459b-b1bf-1e4dc78679a2}</Project>
+      <Name>Servis</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Meni\btn_login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Meni\btn_delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
