@@ -16,6 +16,7 @@ namespace Common.Interface
         List<string> GeoLokacije();
         bool FajlUcitan(string imeFajla);
         void IsprazniBazu();
-        List<Potrosnja> VratiPotrosnju(string ime, string lokacija, string datum);
+        List<IPotrosnja> VratiPotrosnju(string ime, string lokacija, string datum);
+        void EvidentirajGeoLokaciju(string oblast);
     }
 }

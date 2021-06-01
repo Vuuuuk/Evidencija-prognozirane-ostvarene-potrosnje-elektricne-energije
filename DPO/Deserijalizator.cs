@@ -16,16 +16,16 @@ namespace DPO
         public XmlDocument xmlOstvarena;
         public XmlDocument xmlPrognozirana;
 
-        private List<Potrosnja> ostvarenaPotrosnja = new List<Potrosnja>();
-        private List<Potrosnja> prognoziranaPotrosnja = new List<Potrosnja>();
+        private List<IPotrosnja> ostvarenaPotrosnja = new List<IPotrosnja>();
+        private List<IPotrosnja> prognoziranaPotrosnja = new List<IPotrosnja>();
 
-        public List<Potrosnja> OstvarenaPotrosnja
+        public List<IPotrosnja> OstvarenaPotrosnja
         {
             get { return ostvarenaPotrosnja; }
             set { ostvarenaPotrosnja = value; }
         }
 
-        public List<Potrosnja> PrognoziranaPotrosnja
+        public List<IPotrosnja> PrognoziranaPotrosnja
         {
             get { return prognoziranaPotrosnja; }
             set { prognoziranaPotrosnja = value; }

@@ -9,7 +9,7 @@ namespace Common.Interface
 {
     public interface IProracun
     {
-        List<RelativnoOdstupanje> IzracunajOdstupanje(List<Potrosnja> ostvarena, List<Potrosnja> prognozirana);
-        List<Potrosnja> PopuniListuPotrosnje(string ime, string lokacija, string datum);
+        List<IRelativnoOdstupanje> IzracunajOdstupanje(List<IPotrosnja> ostvarena, List<IPotrosnja> prognozirana);
+        List<IPotrosnja> PopuniListuPotrosnje(string ime, string lokacija, string datum);
     }
 }

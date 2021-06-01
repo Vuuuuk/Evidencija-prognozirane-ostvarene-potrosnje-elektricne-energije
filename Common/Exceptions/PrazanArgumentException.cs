@@ -9,6 +9,6 @@ namespace Common.Exceptions
     public class PrazanArgumentException : Exception
     {
         public PrazanArgumentException(string poruka) : base(poruka) { }
-        public PrazanArgumentException() : this("Argument ne sme biti prazan, greška u prenosu fajla!") { }
+        public PrazanArgumentException() : this("Argument ne sme biti prazan, greška u prenosu!") { }
     }
 }

@@ -9,6 +9,6 @@ namespace Common.Interface
 {
     public interface IValidatorPodataka
     {
-        bool Validator(List<Potrosnja> list);
+        bool Validator(List<IPotrosnja> list);
     }
 }

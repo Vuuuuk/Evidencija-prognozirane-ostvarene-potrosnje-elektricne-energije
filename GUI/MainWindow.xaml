@@ -153,10 +153,10 @@
             ColumnHeaderStyle ="{StaticResource dg_header}"
             Height="307" Canvas.Left="324" Canvas.Top="83" Width="466">
             <DataGrid.Columns>
-                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Sat" Binding="{Binding Sat}"/>
-                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Ostvarena" Binding="{Binding OstvarenaPotrosnja}"/>
-                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Prognozirana" Binding="{Binding PrognoziranaPotrosnja}"/>
-                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Odstupanje" Binding="{Binding Odstupanje, StringFormat=\{0\} %}">
+                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Sat" Binding="{Binding sat}"/>
+                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Ostvarena" Binding="{Binding ostvarenaPotrosnja}"/>
+                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Prognozirana" Binding="{Binding prognoziranaPotrosnja}"/>
+                <DataGridTextColumn CellStyle="{StaticResource dg_cell}" Width="*" Header="Odstupanje" Binding="{Binding odstupanje, StringFormat=\{0\} %}">
 
                 </DataGridTextColumn>
             </DataGrid.Columns>

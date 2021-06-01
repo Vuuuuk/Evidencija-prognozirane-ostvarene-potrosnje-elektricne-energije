@@ -1,4 +1,5 @@
 ﻿using BazaPodataka;
+using Common.Exceptions;
 using Common.Interface;
 using Common.Models;
 using System;
@@ -11,11 +12,21 @@ namespace Servis
 {
     public class Evidentiranje : IEvidentiranje
     {
-        Baza baza = new Baza();
-        public void EvidentirajOblasti(List<Potrosnja> potrosnja)
+        private IBaza baza;
+
+        public Evidentiranje(IBaza b)
         {
+            this.baza = b;
+        }
+
+        public List<string> EvidentirajOblasti(List<IPotrosnja> potrosnja)
+        {
+            //EXCEPTION
+            if (potrosnja.Count.Equals(0))
+                throw new PrazanArgumentException();
+
             List<string> postojeceOblasti = baza.GeoLokacije();
-            var noveOblasti = potrosnja.Select(x => x.Oblast).Distinct();
+            var noveOblasti = potrosnja.Select(x => x.oblast).Distinct();
 
             List<string> oblastiZaEvidentiranje = new List<string>();
 
@@ -25,13 +36,18 @@ namespace Servis
                     oblastiZaEvidentiranje.Add(oblast);
             }
 
-            if (oblastiZaEvidentiranje.Count != 0)
+            if (!oblastiZaEvidentiranje.Count.Equals(0))
             {
                 foreach (string oblast in oblastiZaEvidentiranje)
-                {
                     baza.EvidentirajGeoLokaciju(oblast);
-                }
             }
+            else
+            {
+                //EXCEPTION
+                throw new PraznaListaException();
+            }
+
+            return oblastiZaEvidentiranje;
         }
     }
 }

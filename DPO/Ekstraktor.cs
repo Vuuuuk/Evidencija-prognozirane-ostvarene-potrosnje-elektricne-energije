@@ -13,7 +13,7 @@ namespace DPO
 {
     public class Ekstraktor : IEkstraktor
     {
-        public string CuvanjePodatakaCSV(List<RelativnoOdstupanje> relodstupanje)
+        public string CuvanjePodatakaCSV(List<IRelativnoOdstupanje> relodstupanje)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "CSV (*.csv) | *.csv";

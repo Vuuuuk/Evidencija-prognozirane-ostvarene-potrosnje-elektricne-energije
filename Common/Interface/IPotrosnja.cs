@@ -1,5 +1,4 @@
-﻿using Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Common.Interface
 {
-    public interface IEvidentiranje
+    public interface IPotrosnja
     {
-        List<string> EvidentirajOblasti(List<IPotrosnja> potrosnja);
+        int sat { get; set; }
+        int load { get; set; }
+        string oblast { get; set; }
     }
 }

@@ -31,9 +31,9 @@ namespace BazaPodataka
             command.Parameters.AddWithValue("@vreme", vreme.ToString("HH:mm"));
             command.Parameters.AddWithValue("@ime", safeFileName);
             command.Parameters.AddWithValue("@lokacija", lokacija);
-            command.Parameters.AddWithValue("@sat", potrosnja.Sat);
-            command.Parameters.AddWithValue("@load", potrosnja.Load);
-            command.Parameters.AddWithValue("@oblast", potrosnja.Oblast);
+            command.Parameters.AddWithValue("@sat", potrosnja.sat);
+            command.Parameters.AddWithValue("@load", potrosnja.load);
+            command.Parameters.AddWithValue("@oblast", potrosnja.oblast);
             command.Parameters.AddWithValue("@datum", datum.ToShortDateString());
 
 
@@ -122,9 +122,9 @@ namespace BazaPodataka
             command.ExecuteNonQuery();
         }
 
-        public List<Potrosnja> VratiPotrosnju(string ime, string lokacija, string datum)
+        public List<IPotrosnja> VratiPotrosnju(string ime, string lokacija, string datum)
         {
-            List<Potrosnja> lista = new List<Potrosnja>();
+            List<IPotrosnja> lista = new List<IPotrosnja>();
 
             SqlCommand command = new SqlCommand(String.Format("SELECT sat, load, oblast FROM {0} " +
                                                               "WHERE datum = @datum " +

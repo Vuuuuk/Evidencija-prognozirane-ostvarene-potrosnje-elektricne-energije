@@ -10,6 +10,6 @@ namespace Common.Interface
 {
     public interface IEkstraktor
     {
-        string CuvanjePodatakaCSV(List<RelativnoOdstupanje> relodstupanje);
+        string CuvanjePodatakaCSV(List<IRelativnoOdstupanje> relodstupanje);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common.Models;
+﻿using Common.Interface;
+using Common.Models;
 using Microsoft.Win32;
 using Servis;
 using System;
@@ -18,9 +19,9 @@ namespace GUI
         ValidatorTipaFajla validatorTipa = new ValidatorTipaFajla();
         ValidatorPodataka validatorPodataka = new ValidatorPodataka();
         DPO.Deserijalizator deserijalizator = new DPO.Deserijalizator();
-        Evidentiranje evidentiranje = new Evidentiranje();
-        Proracun proracun = new Proracun();
         DAO.PristupPodacima pristup = new DAO.PristupPodacima();
+        Evidentiranje evidentiranje = new Evidentiranje(DAO.PristupPodacima.InitBaza()); //init baze za constructor injection
+        Proracun proracun = new Proracun();
 
         OpenFileDialog ostvarena;
         OpenFileDialog prognozirana;
@@ -188,11 +189,11 @@ namespace GUI
         {
             if(cbOdabirGeoOblasti.SelectedItem != null && dpIzborDatuma.SelectedDate.Value != null)
             {
-                List<Potrosnja> ostvarenaLista = 
+                List<IPotrosnja> ostvarenaLista = 
                     proracun.PopuniListuPotrosnje("EvidencijaOstvarenePotrosnje", 
                     cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), 
                     dpIzborDatuma.SelectedDate.Value.ToShortDateString());
-                List<Potrosnja> prognoziranaLista =
+                List<IPotrosnja> prognoziranaLista =
                     proracun.PopuniListuPotrosnje("EvidencijaPrognoziranePotrosnje", 
                     cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), 
                     dpIzborDatuma.SelectedDate.Value.ToShortDateString());
@@ -234,7 +235,7 @@ namespace GUI
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
 
-            List<RelativnoOdstupanje> list = new List<RelativnoOdstupanje>();
+            List<IRelativnoOdstupanje> list = new List<IRelativnoOdstupanje>();
 
             if (!dgPrikazPodataka.Items.Count.Equals(0))
             {
@@ -245,10 +246,10 @@ namespace GUI
 
                     foreach (var item in dgPrikazPodataka.Items.OfType<RelativnoOdstupanje>())
                     {
-                        var sat = item.Sat;
-                        var ostvarena = item.OstvarenaPotrosnja;
-                        var prognozirana = item.PrognoziranaPotrosnja;
-                        var odstupanje = item.Odstupanje;
+                        var sat = item.sat;
+                        var ostvarena = item.ostvarenaPotrosnja;
+                        var prognozirana = item.prognoziranaPotrosnja;
+                        var odstupanje = item.odstupanje;
                         list.Add(new RelativnoOdstupanje(sat, ostvarena, prognozirana, odstupanje));
                     }
 

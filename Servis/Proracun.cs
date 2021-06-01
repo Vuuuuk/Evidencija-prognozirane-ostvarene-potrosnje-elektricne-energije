@@ -12,18 +12,18 @@ namespace Servis
     public class Proracun : IProracun
     {
         Baza baza = new Baza();
-        public List<RelativnoOdstupanje> IzracunajOdstupanje(List<Potrosnja> ostvarena, List<Potrosnja> prognozirana)
+        public List<IRelativnoOdstupanje> IzracunajOdstupanje(List<IPotrosnja> ostvarena, List<IPotrosnja> prognozirana)
         {
-            List<RelativnoOdstupanje> lista = new List<RelativnoOdstupanje>();
+            List<IRelativnoOdstupanje> lista = new List<IRelativnoOdstupanje>();
 
             for (int i = 0; i < ostvarena.Count; i++)
             {
                 for (int j = 0; j < prognozirana.Count; j++)
                 {
-                    if(ostvarena[i].Sat == prognozirana[j].Sat)
+                    if(ostvarena[i].sat == prognozirana[j].sat)
                     {
-                        double odstupanje = Math.Round(Math.Abs((double)ostvarena[i].Load - prognozirana[j].Load) / ostvarena[i].Load * 100 , 3);
-                        lista.Add(new RelativnoOdstupanje(ostvarena[i].Sat, ostvarena[i].Load, prognozirana[j].Load, odstupanje));
+                        double odstupanje = Math.Round(Math.Abs((double)ostvarena[i].load - prognozirana[j].load) / ostvarena[i].load * 100 , 3);
+                        lista.Add(new RelativnoOdstupanje(ostvarena[i].sat, ostvarena[i].load, prognozirana[j].load, odstupanje));
                     }
                 }
             }
@@ -31,7 +31,7 @@ namespace Servis
             return lista;
         }
 
-        public List<Potrosnja> PopuniListuPotrosnje(string ime, string lokacija, string datum)
+        public List<IPotrosnja> PopuniListuPotrosnje(string ime, string lokacija, string datum)
         {
             return baza.VratiPotrosnju(ime, lokacija, datum);
         }

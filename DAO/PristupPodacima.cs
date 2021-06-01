@@ -54,7 +54,7 @@ namespace DAO
             baza.IsprazniBazu();
         }
 
-        public List<Potrosnja> VratiPotrosnju(string ime, string lokacija, string datum)
+        public List<IPotrosnja> VratiPotrosnju(string ime, string lokacija, string datum)
         {
             return baza.VratiPotrosnju(ime, lokacija, datum);
         }
@@ -70,6 +70,16 @@ namespace DAO
             return connection.OtvoriLocalKonekciju();
         }
 
+        public void EvidentirajGeoLokaciju(string oblast)
+        {
+            baza.EvidentirajGeoLokaciju(oblast);
+        }
 
+        //Kreiranje baze za constructor injection
+        public static IBaza InitBaza()
+        {
+            IBaza baza = new Baza();
+            return baza;
+        }
     }
 }
