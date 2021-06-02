@@ -182,7 +182,9 @@ namespace GUI
                 MessageBox.Show(message, "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show(message, "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
-            dgGeografskaPodrucja.ItemsSource = pristup.GeoLokacije();
+
+            if(pristup.ProveraKonekcije())
+                dgGeografskaPodrucja.ItemsSource = pristup.GeoLokacije();
         }
 
         private void btnPrikazi_Click(object sender, RoutedEventArgs e)
