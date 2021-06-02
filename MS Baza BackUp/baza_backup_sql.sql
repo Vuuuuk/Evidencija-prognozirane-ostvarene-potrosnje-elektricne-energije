@@ -25,7 +25,7 @@ CREATE TABLE EvidencijaPrognoziranePotrosnje(
     datum date
 );
 
-CREATE TABLE EvidencijaGeoOblasti(
+CREATE TABLE EvidencijaGeoPodrucja(
     naziv varchar(10),
     sifra varchar(10)
 )
