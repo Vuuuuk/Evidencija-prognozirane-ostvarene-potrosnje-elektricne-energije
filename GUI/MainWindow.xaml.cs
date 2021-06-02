@@ -189,7 +189,7 @@ namespace GUI
 
         private void btnPrikazi_Click(object sender, RoutedEventArgs e)
         {
-            if(cbOdabirGeoOblasti.SelectedItem != null && dpIzborDatuma.SelectedDate.Value != null)
+            if(cbOdabirGeoOblasti.SelectedItem != null && dpIzborDatuma.SelectedDate != null)
             {
                 List<IPotrosnja> ostvarenaLista = 
                     proracun.PopuniListuPotrosnje("EvidencijaOstvarenePotrosnje", 
@@ -200,7 +200,10 @@ namespace GUI
                     cbOdabirGeoOblasti.SelectedItem.ToString().Trim(), 
                     dpIzborDatuma.SelectedDate.Value.ToShortDateString());
 
-                dgPrikazPodataka.ItemsSource = proracun.IzracunajOdstupanje(ostvarenaLista, prognoziranaLista);
+                if(ostvarenaLista.Count() != 0 || prognoziranaLista.Count() != 0)
+                    dgPrikazPodataka.ItemsSource = proracun.IzracunajOdstupanje(ostvarenaLista, prognoziranaLista);
+                else
+                    dgPrikazPodataka.ItemsSource = null;
             }
         }
 
