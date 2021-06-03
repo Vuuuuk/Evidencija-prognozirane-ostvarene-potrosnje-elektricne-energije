@@ -30,7 +30,7 @@ namespace DPO
                     catch (IOException e)
                     {
                         fileError = true;
-                        MessageBox.Show("Neuspšno kreiranje fajla, molimo pokušajte ponovo!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(e.Message + "\nNeuspšno kreiranje fajla, molimo pokušajte ponovo!", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 if (!fileError)
