@@ -35,6 +35,7 @@ namespace Servis
                 {
                     Console.WriteLine("[GREŠKA] Nevalidan fajl -> Broj sati u danu za oblast {0} = {1}", ob, sati.Count());
                     Console.WriteLine("Datum {0} ima {1} sati.", datum.ToShortDateString(), brojSatiUDanu);
+                    Console.WriteLine("Offset " + TimeZone.CurrentTimeZone.GetUtcOffset(datum));
                     valid = false;
                 }
             }
