@@ -21,9 +21,9 @@ namespace Servis
             int brojSatiUDanu = 24;
             var dst = TimeZone.CurrentTimeZone.GetDaylightChanges(datum.Year);
             if (dst.End > datum && dst.End < datum.AddDays(1))
-                brojSatiUDanu = 23;
-            if (dst.Start > datum && dst.Start < datum.AddDays(1))
                 brojSatiUDanu = 25;
+            if (dst.Start > datum && dst.Start < datum.AddDays(1))
+                brojSatiUDanu = 23;
 
             bool valid = true;
             var oblasti = list.Select(x => x.oblast).Distinct();

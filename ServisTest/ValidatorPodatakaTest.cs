@@ -50,8 +50,8 @@ namespace ServisTest
             {
                 list.Add(new Potrosnja(i + 1, 2000 + 20 * i, "VOJ"));
             }
-            // 31. oktobar 2021. godine ima 23 sata!
-            Assert.IsTrue(validatorPodatakaTestObjekat.Validator(new DateTime(2021, 10, 31), list));
+            // 28. mart 2021. godine ima 23 sata!
+            Assert.IsTrue(validatorPodatakaTestObjekat.Validator(new DateTime(2021, 03, 28), list));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace ServisTest
             {
                 list.Add(new Potrosnja(i + 1, 2000 + 20 * i, "VOJ"));
             }
-            // 28. mart 2021. godine ima 25 sata!
+            // 28. mart 2021. godine ima 23 sata!
             Assert.IsFalse(validatorPodatakaTestObjekat.Validator(new DateTime(2021, 03, 28), list));
         }
 
@@ -100,8 +100,8 @@ namespace ServisTest
             {
                 list.Add(new Potrosnja(i + 1, 2000 + 20 * i, "VOJ"));
             }
-            // 28. mart 2021. godine ima 25 sata!
-            Assert.IsTrue(validatorPodatakaTestObjekat.Validator(new DateTime(2021, 03, 28), list));
+            // 31. oktobar 2021. godine ima 25 sata!
+            Assert.IsTrue(validatorPodatakaTestObjekat.Validator(new DateTime(2021, 10, 31), list));
         }
 
         [Test]
